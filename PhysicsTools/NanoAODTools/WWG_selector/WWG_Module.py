@@ -75,16 +75,7 @@ class WWG_Producer(Module):
         self.out.branch("Njets_mumu",  "i")
         self.out.branch("Njets_ee",  "i")
         
-        
-#         self.out.branch("z_lepton1_pt",  "F")
-#         self.out.branch("z_lepton1_eta",  "F")
-#         self.out.branch("z_lepton1_phi",  "F")
-#         self.out.branch("z_lepton2_pt",  "F")
-#         self.out.branch("z_lepton2_eta",  "F")
-#         self.out.branch("z_lepton2_phi",  "F")
-#         self.out.branch("w_lepton_pt",  "F")
-#         self.out.branch("w_lepton_eta",  "F")
-#         self.out.branch("w_lepton_phi",  "F")
+
         self.out.branch("dilepton_mass_mumu",  "F")
         self.out.branch("dilepton_g_mass_mumu",  "F")
         self.out.branch("dilepton_pt_mumu",  "F")
@@ -98,9 +89,7 @@ class WWG_Producer(Module):
         self.out.branch("dilepton_g_mass",  "F")
         self.out.branch("dilepton_pt",  "F")
         self.out.branch("Generator_weight","F")
-        # self.out.branch("max_CMVA","F")
-        # self.out.branch("max_CSVV2","F")
-        # self.out.branch("max_DeepB","F")
+
         self.out.branch("channel_mark","i")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
@@ -214,9 +203,6 @@ class WWG_Producer(Module):
             return False                        #reject event if there is not exact one photon in the event 
 
 
-        #if len(electrons_select)==0 and len(muons_select)==0:      #reject event if there is no lepton selected in the event
-        #    none_lepton_reject += 1
-        #    return False
         njets = -1
         for i in range(0,len(jets)):
             btag_cut = False
@@ -357,17 +343,6 @@ class WWG_Producer(Module):
             print len(electrons_select),len(muons_select)
             return False
 
-
-        # max_CMVA=-999
-        # max_CSVV2=-999
-        # max_DeepB=-999
-        # for i in range(0,len(jets)): 
-        #     if jets[i].btagCMVA > max_CMVA: max_CMVA = jets[i].btagCMVA
-        #     if jets[i].btagCSVV2 > max_CSVV2: max_CSVV2 = jets[i].btagCSVV2
-        #     if jets[i].btagDeepB > max_DeepB: max_DeepB = jets[i].btagDeepB
-        # self.out.fillBranch("max_CMVA",max_CMVA)
-        # self.out.fillBranch("max_CSVV2",max_CSVV2)
-        # self.out.fillBranch("max_DeepB",max_DeepB)
 
 
 
