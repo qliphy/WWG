@@ -111,7 +111,7 @@ print "none_lepton_reject","\t","=","\t",WWG.none_lepton_reject
 print "none_2lepton_reject","\t","=","\t",WWG.none_2lepton_reject
 print "different_charge_reject","\t","=","\t",WWG.different_charge_reject
 print "minus_mll ","\t","=","\t",WWG.minus_mll
-print "all reject",WWG.none_photon_reject+WZG.none_2lepton_reject+WZG.different_charge_reject+WZG.minus_mll+WZG.mll_reject+WZG.pt_reject+WZG.njet_reject
+print "all reject",WWG.none_photon_reject+WWG.none_2lepton_reject+WWG.different_charge_reject+WWG.minus_mll+WWG.mll_reject+WWG.pt_reject+WWG.njet_reject
 
 
 print "emu_pass","\t","=","\t",WWG.emu_pass
