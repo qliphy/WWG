@@ -165,7 +165,7 @@ class WWG_Producer(Module):
         for i in range(0,len(electrons)):
             if electrons[i].pt < 20:
                 continue
-            if abs(electrons[i].eta + electrons[i].deltaEtaSC) < 2.5:
+            if abs(electrons[i].eta) < 2.5:
                 continue
             if electrons[i].cutBased >= 3:
                 electrons_select.append(i)
@@ -228,13 +228,13 @@ class WWG_Producer(Module):
                 for j in range(0,len(muons_select)):
                     if deltaR(jets[i].eta,jets[i].phi,muons[muons_select[j]].eta,muons[muons_select[j]].phi) < 0.5 and jets[i].pt >25 :
                         btag_cut = True
-            else:
-                btag_cut = False
-                jets_select.append(i)
-                njets +=1
-            if btag_cut == True:
-                btagjet_reject += 1
-                return False
+                    else:
+                        btag_cut = False
+                        jets_select.append(i)
+                        njets +=1
+                if btag_cut == True:
+                    btagjet_reject += 1
+                    return False
         njets = njets + 1
         if njets >2 :
             njet_reject +=1
