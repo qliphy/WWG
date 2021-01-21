@@ -89,6 +89,8 @@ class WWG_Producer(Module):
         self.out.branch("dilepton_g_mass",  "F")
         self.out.branch("dilepton_pt",  "F")
         self.out.branch("Generator_weight","F")
+        self.out.branch("lepton_motherid_mumu",  "F")
+        self.out.branch("lepton_motherid_emu",  "F")
 
         self.out.branch("channel_mark","i")
 
@@ -108,8 +110,11 @@ class WWG_Producer(Module):
         electrons_select = []
         muons_select = [] 
         jets_select = [] 
-        # Record the pass numbers for each cut. Noticed that for efficiency, those who can't pass the MET cut may not be counted because it will pass to next event directly.
+        if hasattr(event,'nGenPart'):
+            genparts = Collection(event, "GenPart")
 
+	# Record the pass numbers for each cut. Noticed that for efficiency, those who can't pass the MET cut may not be counted because it will pass to next event directly.
+        
         global MET_pass
         global photon_pass
         global electron_pass
@@ -156,6 +161,8 @@ class WWG_Producer(Module):
                 continue
             if abs(muons[i].eta) > 2.5:
                 continue
+            if muons[i].pfRelIso04_all > 0.4:
+                continue   
             if muons[i].mediumId == True:
                 muons_select.append(i)
                 muon_pass += 1
@@ -165,11 +172,12 @@ class WWG_Producer(Module):
         for i in range(0,len(electrons)):
             if electrons[i].pt < 20:
                 continue
-            if abs(electrons[i].eta) < 2.5:
+            if abs(electrons[i].eta + electrons[i].deltaEtaSC) > 2.5:
                 continue
-            if electrons[i].cutBased >= 3:
-                electrons_select.append(i)
-                electron_pass += 1
+            if (abs(electrons[i].eta + electrons[i].deltaEtaSC) < 1.479 and abs(electrons[i].dz) < 0.1 and abs(electrons[i].dxy) < 0.05) or (abs(electrons[i].eta + electrons[i].deltaEtaSC) > 1.479 and abs(electrons[i].dz) < 0.2 and abs(electrons[i].dxy) < 0.1):
+                if electrons[i].cutBased >= 3:
+                    electrons_select.append(i)
+                    electron_pass += 1
 
         if len(electrons_select)+len(muons_select) != 2:      #reject event if there are not exactly two leptons
             none_2lepton_reject += 1
@@ -183,7 +191,10 @@ class WWG_Producer(Module):
                 continue
             if abs(photons[i].eta) > 2.5:
                 continue
-
+            if not (photons[i].isScEtaEE or photons[i].isScEtaEB):
+                continue
+            if photons[i].pixelSeed:
+		continue
             pass_lepton_dr_cut = True
             for j in range(0,len(muons_select)):
                 if deltaR(muons[muons_select[j]].eta,muons[muons_select[j]].phi,photons[i].eta,photons[i].phi) < 0.5:
@@ -213,6 +224,9 @@ class WWG_Producer(Module):
             # if jets[i].btagDeepB > 0.2219:  # DeepCSVL
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVM
                 btag_cut = True      #initialize
+                #if abs(jets[i].eta) > 4.7:
+                #    continue
+
                 if jets[i].pt<30:
                     continue
                 for j in range(0,len(photons_select)):          # delta R cut, if all deltaR(lep,jet) and deltaR(gamma,jet)>0.3, consider jet as a b jet
@@ -273,7 +287,6 @@ class WWG_Producer(Module):
             if dileptonmass > 0: 
                 channel = 1
                 emu_pass += 1
-                print emu_pass
             else :
                 minus_mll +=1
                 return False
@@ -302,7 +315,6 @@ class WWG_Producer(Module):
             if dileptonmass > 0:
                 channel = 2
                 ee_pass += 1
-                print ee_pass
             else:
                 minus_mll +=1
                 return False
@@ -333,7 +345,6 @@ class WWG_Producer(Module):
             if dileptonmass > 0: 
                 channel = 3
                 mumu_pass += 1
-                print mumu_pass
             else :
                 minus_mll +=1
                 return False
@@ -390,6 +401,8 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
 
         elif channel == 3:
+            #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
+            #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
             self.out.fillBranch("Njets",njets) 
             self.out.fillBranch("dilepton_mass_mumu",dileptonmass_mumu)
             self.out.fillBranch("dilepton_g_mass_mumu",dileptongmass_mumu)
