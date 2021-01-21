@@ -37,7 +37,7 @@ n_posi=0
 n_minus=0
 njet_reject = 0
 n_num = 0
-class WZG_Producer(Module):
+class WWG_Producer(Module):
     def __init__(self):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
@@ -205,7 +205,7 @@ class WZG_Producer(Module):
             if not pass_lepton_dr_cut:
                 continue
         #if photons[i].cutBasedBitmap >=1: #1==medium
-        if photons[i].cutBased >=2:
+            if photons[i].cutBased >=2:
                 photons_select.append(i)
                 photon_pass += 1
 
