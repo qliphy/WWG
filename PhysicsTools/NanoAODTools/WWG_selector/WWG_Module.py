@@ -156,6 +156,8 @@ class WWG_Producer(Module):
                 continue
             if abs(muons[i].eta) > 2.5:
                 continue
+            if muons[i].pfRelIso04_all > 0.4:
+                continue   
             if muons[i].mediumId == True:
                 muons_select.append(i)
                 muon_pass += 1
@@ -165,11 +167,12 @@ class WWG_Producer(Module):
         for i in range(0,len(electrons)):
             if electrons[i].pt < 20:
                 continue
-            if abs(electrons[i].eta) < 2.5:
+            if abs(electrons[i].eta + electrons[i].deltaEtaSC) > 2.5:
                 continue
-            if electrons[i].cutBased >= 3:
-                electrons_select.append(i)
-                electron_pass += 1
+            if (abs(electrons[i].eta + electrons[i].deltaEtaSC) < 1.479 and abs(electrons[i].dz) < 0.1 and abs(electrons[i].dxy) < 0.05) or (abs(electrons[i].eta + electrons[i].deltaEtaSC) > 1.479 and abs(electrons[i].dz) < 0.2 and abs(electrons[i].dxy) < 0.1):
+                if electrons[i].cutBased >= 3:
+                    electrons_select.append(i)
+                    electron_pass += 1
 
         if len(electrons_select)+len(muons_select) != 2:      #reject event if there are not exactly two leptons
             none_2lepton_reject += 1
