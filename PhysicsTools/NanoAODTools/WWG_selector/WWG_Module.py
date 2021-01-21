@@ -324,7 +324,7 @@ class WZG_Producer(Module):
 
         # mumu 
         if len(electrons_select)==0 and len(muons_select)==2:
-        if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,muons[muons_select[1]].eta,muons[muons_select[1]].phi)<0.5:
+            if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,muons[muons_select[1]].eta,muons[muons_select[1]].phi)<0.5:
                 deltar_reject +=1
                 return False
             if muons[muons_select[0]].charge * muons[muons_select[1]].charge < 0:
