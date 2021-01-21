@@ -1,14 +1,9 @@
-# WZG selector
+# WWG selector
 Based on NanoAOD Tools: <https://github.com/cms-nanoAOD/nanoAOD-tools>
 
-Dedicated for WZG analysis on lxplus environment
+Dedicated for WWG analysis on cms-connect environment
 
 --------------
-## content
-
-- [Download and setup](#Download-and-setup)
-- [Baseline selection](#Baseline-selection)
-- [Condor mode](#Condor-mode)
 
 --------------
 <br>
