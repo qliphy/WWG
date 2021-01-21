@@ -5,18 +5,24 @@ Dedicated for WWG analysis on cms-connect environment
 
 --------------
 
---------------
 <br>
 
 ## <span id="Download-and-setup"> Download and setup </span> 
 
 ```bash
-cmsrel CMSSW_10_6_0
-cd CMSSW_10_6_0/src
-cmsenv
-git clone https://github.com/Senphy/nanoAOD-WVG.git PhysicsTools/NanoAODTools 
-cd PhysicsTools/NanoAODTools
-scram b
+FOR EXAMPLE:
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+
+initial_path=${PWD}
+scramv1 project CMSSW CMSSW_10_2_22
+cd CMSSW_10_2_22/src
+eval `scramv1 runtime -sh`
+
+git clone https://github.com/phy-guanzh/WWG.git
+scram b -j4
+
+cd PhysicsTools/NanoAODTools/WWG_selector
+python WWG_postproc.py -m local -n ZGJ -y 2021 -f root://cmsxrootd.fnal.gov//store/mc/RunIIFall17NanoAODv7/ZGToLLG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/270000/AE6064CB-3F5C-DD45-AF59-4B22669A8E7D.root
 ```
 <br>
 
