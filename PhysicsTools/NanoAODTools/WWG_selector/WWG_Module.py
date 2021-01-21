@@ -387,12 +387,12 @@ class WZG_Producer(Module):
             self.out.fillBranch("photon_eta_emu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_emu",photons[photons_select[0]].phi)
             #lep1_pt lep2_pt
-        if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
-            self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
-            self.out.fillBranch("lepton2_pt_emu",electrons[electrons_select[0]].pt)
-        else:
-            self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
-            self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
+            if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
+                self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
+                self.out.fillBranch("lepton2_pt_emu",electrons[electrons_select[0]].pt)
+            else:
+                self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
+                self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
 
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
@@ -407,12 +407,12 @@ class WZG_Producer(Module):
             self.out.fillBranch("photon_eta_ee",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_ee",photons[photons_select[0]].phi)
             #lep1_pt lep2_pt
-        if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
-            self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
-            self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[1]].pt)
-        else:
-            self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
-            self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
+            if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
+                self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
+                self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[1]].pt)
+            else:
+                self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
+                self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
 
         elif channel == 3:
             self.out.fillBranch("Njets",njets) 
@@ -425,12 +425,12 @@ class WZG_Producer(Module):
             self.out.fillBranch("photon_eta_mumu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_mumu",photons[photons_select[0]].phi)
             #lep1_pt lep2_pt
-        if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
-            self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
-            self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[1]].pt)
-        else:
-            self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
-            self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
+            if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
+                self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
+                self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[1]].pt)
+            else:
+                self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
+                self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
 
 
         self.out.fillBranch("event",event.event)
