@@ -224,9 +224,8 @@ class WWG_Producer(Module):
             # if jets[i].btagDeepB > 0.2219:  # DeepCSVL
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVM
                 btag_cut = True      #initialize
-                #if abs(jets[i].eta) > 4.7:
-                #    continue
-
+                if abs(jets[i].eta) > 4.7:
+                    continue
                 if jets[i].pt<30:
                     continue
                 for j in range(0,len(photons_select)):          # delta R cut, if all deltaR(lep,jet) and deltaR(gamma,jet)>0.3, consider jet as a b jet
