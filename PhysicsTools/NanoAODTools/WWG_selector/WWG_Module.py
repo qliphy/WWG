@@ -194,7 +194,7 @@ class WWG_Producer(Module):
             if not (photons[i].isScEtaEE or photons[i].isScEtaEB):
                 continue
             if photons[i].pixelSeed:
-		continue
+                continue
             pass_lepton_dr_cut = True
             for j in range(0,len(muons_select)):
                 if deltaR(muons[muons_select[j]].eta,muons[muons_select[j]].phi,photons[i].eta,photons[i].phi) < 0.5:
@@ -273,7 +273,9 @@ class WWG_Producer(Module):
                 dileptonmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
                 dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
                 dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
-                if dileptonmass >= 50 and dileptonmass <= 100: 
+                met_emu = event.MET_pt
+     
+                if dileptonmass >= 101 and dileptonmass <= 100: 
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
@@ -303,7 +305,9 @@ class WWG_Producer(Module):
                 dileptonmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
                 dileptongmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
                 dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
-                if dileptonmass >= 50 and dileptonmass <= 100: 
+                
+                met_ee = event.MET_pt
+                if dileptonmass >= 101 and dileptonmass <= 100: 
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
@@ -331,8 +335,9 @@ class WWG_Producer(Module):
                 dileptonpt = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
                 dileptonmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).M()
                 dileptongmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
+                met_mumu = event.MET_pt
                 dileptonpt_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
-                if dileptonmass >= 50 and dileptonmass <= 100: 
+                if dileptonmass >= 101 and dileptonmass <= 100: 
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
@@ -368,7 +373,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("dilepton_g_mass_emu",dileptongmass_emu)
             self.out.fillBranch("dilepton_pt_emu",dileptonpt_emu)
             self.out.fillBranch("Njets_emu",njets)
-            self.out.fillBranch("MET_emu",event.MET_pt)
+            self.out.fillBranch("MET_emu",met_emu)
             self.out.fillBranch("photon_pt_emu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_emu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_emu",photons[photons_select[0]].phi)
@@ -388,7 +393,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("dilepton_g_mass_ee",dileptongmass_ee)
             self.out.fillBranch("dilepton_pt_ee",dileptonpt_ee)
             self.out.fillBranch("Njets_ee",njets)
-            self.out.fillBranch("MET_ee",event.MET_pt)
+            self.out.fillBranch("MET_ee",met_ee)
             self.out.fillBranch("photon_pt_ee",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_ee",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_ee",photons[photons_select[0]].phi)
@@ -408,7 +413,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("dilepton_g_mass_mumu",dileptongmass_mumu)
             self.out.fillBranch("dilepton_pt_mumu",dileptonpt_mumu)
             self.out.fillBranch("Njets_mumu",njets)
-            self.out.fillBranch("MET_mumu",event.MET_pt)
+            self.out.fillBranch("MET_mumu",met_mumu)
             self.out.fillBranch("photon_pt_mumu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_mumu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_mumu",photons[photons_select[0]].phi)
