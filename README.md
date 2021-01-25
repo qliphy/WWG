@@ -16,8 +16,8 @@ Dedicated for WWG analysis on cms-connect environment
 ## <span id="Download-and-setup"> Download and setup </span> 
 
 ```bash
-cmsrel CMSSW_10_6_0
-cd CMSSW_10_6_0/src
+cmsrel CMSSW_10_6_14
+cd CMSSW_10_6_14/src
 cmsenv
 git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
 cd PhysicsTools/NanoAODTools
