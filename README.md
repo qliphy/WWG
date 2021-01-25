@@ -28,7 +28,7 @@ scram b
 <br>
 
 ## <span id="Baseline-selection"> Baseline selection </span>
-In WZG_seletor, `WZG_Module.py` is designed for basic selection (e.g. pt cut). Use `WZG_postproc.py` to test.
+In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
 
 ```bash
 python WWG_postproc.py -h
