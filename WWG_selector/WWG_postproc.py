@@ -5,6 +5,10 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 from importlib import import_module
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.countHistogramsModule import countHistogramsProducer
+from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetHelperRun2 import createJMECorrector
+from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import *
+from PhysicsTools.NanoAODTools.postprocessing.modules.common.muonScaleResProducer import *
+#from PhysicsTools.NanoAODTools.postprocessing.modules.common.collectionMerger import *
 
 # from WWG_Module import * 
 import WWG_Module as WWG
@@ -31,6 +35,9 @@ print "year: ", args.year
 print "dataset_name: ", args.name
 
 
+jmeCorrections_ak4_2018 = createJMECorrector(True,2018,"A","Total","AK4PFchs",False,"MET",True,False,True,False)
+jmeCorrections_ak8_2018 = createJMECorrector(True,2018,"A","Total","AK8PFPuppi",False,"MET",True,False,True,False)
+
 
 
 # classify input files
@@ -38,23 +45,38 @@ if args.file == '':
 
     print "no local file input, use DAS file"
     dataset = ''
-    if args.name == 'tZq_ll':
-        if args.year == '2016': dataset = "/tZq_ll_4f_13TeV-amcatnlo-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
+    if args.name == 'TZQ':
+        if args.year == '2021': dataset = "/tZq_ll_4f_13TeV-amcatnlo-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
+    elif args.name == 'WW':
+        if args.year == '2021': dataset = "/WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
+    elif args.name == 'TTGJ':
+        if args.year == '2021': dataset = "/TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
     elif args.name == 'WZ':
-        if args.year == '2016': dataset = "/WZ_TuneCUETP8M1_13TeV-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
-    elif args.name == 'TTWJetsToLNu':
-        if args.year == '2016': dataset = "/TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
-    elif args.name == 'ttZJets':
-        if args.year == '2016': dataset = "/ttZJets_13TeV_madgraphMLM-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
+        if args.year == '2020': dataset = "/WZTo3LNu_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
     elif args.name == 'SingleElectron':
-        if args.year == '2017': dataset = "/SingleElectron/Run2017B-Nano1June2019-v1/NANOAOD"
+        if args.year == '2021': dataset = "/SingleElectron/Run2016C-05Feb2018-v2/NANOAOD"
+    elif args.name == 'MuonEG':
+        if args.year == '2021': dataset = "/MuonEG/Run2018A-Nano1June2019-v1/NANOAOD"
     elif args.name == 'SingleMuon':
-        if args.year == '2017': dataset = "/SingleMuon/Run2017B-Nano1June2019-v1/NANOAOD"
+        if args.year == '2021': dataset = "/SingleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
+    elif args.name == 'EGamma':
+        if args.year == '2021': dataset = "/EGamma/Run2018A-Nano1June2019-v1/NANOAOD"
+    elif args.name == 'DoubleMuon':
+        if args.year == '2021': dataset = "/DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
+    elif args.name == 'TW':
+        if args.year == '2021': dataset = "/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
+    elif args.name == 'ZZ':
+        if args.year == '2021': dataset = "/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+    elif args.name == 'DY':
+        if args.year == '2021': dataset = "/DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+    elif args.name == 'ZGJ':
+        if args.year == '2021': dataset = "/ZGToLLG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+    elif args.name == 'ZGJ2':
+        if args.year == '2021': dataset = "/ZGToLLG_01J_LoosePtlPtg_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
     else:
-        print "unknown dataset name"
+        print
+        "unknown dataset name"
         sys.exit(0)
-
-
     files = []
 
     # condor can't use dasgoclient, so we should upload the filepath for condor run. sth. different with local run here
@@ -72,9 +94,12 @@ if args.file == '':
 
     print 'from DAS input files: ',files
 
-    p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WZG.WZG_Producer()],provenance=True,outputbranchsel="WZG_output_branch.txt")
-    p.run()
 
+    p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",
+                      modules=[countHistogramsProducer(), muonScaleRes2018(), jmeCorrections_ak4_2018(),
+                               jmeCorrections_ak8_2018(), WWG.WWG_Producer(), puWeight_2018()], provenance=True,
+                      outputbranchsel="WWG_output_branch.txt")
+    p.run()
 
 else:    
     files = []
@@ -96,7 +121,7 @@ else:
 
         print 'input files: ',files
 
-    p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,outputbranchsel="WWG_output_branch.txt")
+    p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,outputbranchsel="WWG_output_branch.txt")
     p.run()
 
 

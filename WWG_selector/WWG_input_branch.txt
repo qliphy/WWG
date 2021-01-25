@@ -7,3 +7,4 @@ keep *event*
 keep MET*
 keep Jet*
 keep *weight
+keep *
