@@ -114,7 +114,7 @@ with open ("filepath_"+args.name+"_"+args.year+".txt","r") as f0:
             f.write("git clone https://github.com/phy-guanzh/WWG.git\n")
             f.write("mv WWG/* .\n")
             f.write("scram b -j4\n\n")
-            f.write("cd PhysicsTools/NanoAODTools/WWG_selector\n")
+            f.write("cd WWG_selector\n")
             # f.write("cp ${initial_path}/filepath_"+args.name+"_"+args.year+".txt .\n" )
             f.write("python WWG_postproc.py -m local -n "+args.name+" -y "+args.year+" -f "+"root://cmsxrootd.fnal.gov/"+line+"\n\n")
             f.write("cp *.root ${initial_path}")
