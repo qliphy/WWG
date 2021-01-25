@@ -19,6 +19,8 @@ Dedicated for WWG analysis on cms-connect environment
 cmsrel CMSSW_10_6_0
 cd CMSSW_10_6_0/src
 cmsenv
+git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools
+cd PhysicsTools/NanoAODTools
 git clone https://github.com/Senphy/nanoAOD-WVG.git PhysicsTools/NanoAODTools 
 cd PhysicsTools/NanoAODTools
 scram b
