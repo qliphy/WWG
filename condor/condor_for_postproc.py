@@ -107,7 +107,7 @@ with open ("filepath_"+args.name+"_"+args.year+".txt","r") as f0:
             f.write("source /cvmfs/cms.cern.ch/cmsset_default.sh\n\n")
             f.write("initial_path=${PWD}\n")
             f.write("scramv1 project CMSSW CMSSW_10_2_22\n")
-            f.write("cd CMSSW_10_2_22/src\n")
+            f.write("cd CMSSW_10_6_14/src\n")
             f.write("eval `scramv1 runtime -sh`\n\n")
             f.write("git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools\n")
             f.write("cd PhysicsTools/NanoAODTools\n")
