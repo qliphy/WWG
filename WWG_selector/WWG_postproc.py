@@ -91,10 +91,7 @@ if args.file == '':
                 line = line.rstrip('\n')
                 files.append(search.getValidSite(line)+line)
 
-
     print 'from DAS input files: ',files
-
-
     p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",
                       modules=[countHistogramsProducer(), muonScaleRes2018(), jmeCorrections_ak4_2018(),
                                jmeCorrections_ak8_2018(), WWG.WWG_Producer(), puWeight_2018()], provenance=True,
