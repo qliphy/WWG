@@ -21,29 +21,40 @@ print "year: ", args.year
 print "dataset name:", args.name, '\n'
 
 
-
-
-if args.name == 'tZq_ll':
-    if args.year == '2016': dataset = "/tZq_ll_4f_13TeV-amcatnlo-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
+if args.name == 'TZQ':
+    if args.year == '2021': dataset = "/tZq_ll_4f_13TeV-amcatnlo-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
+elif args.name == 'WW':
+    if args.year == '2021': dataset = "/WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
+elif args.name == 'TTGJ':
+    if args.year == '2021': dataset = "/TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
 elif args.name == 'WZ':
-    if args.year == '2016': dataset = "/WZ_TuneCUETP8M1_13TeV-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
-elif args.name == 'TTWJetsToLNu':
-    if args.year == '2016': dataset = "/TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
-elif args.name == 'ttZJets':
-    if args.year == '2016': dataset = "/ttZJets_13TeV_madgraphMLM-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
+    if args.year == '2020': dataset = "/WZTo3LNu_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
 elif args.name == 'SingleElectron':
-    if args.year == '2018': dataset = "/SingleElectron/Run2016C-05Feb2018-v2/NANOAOD"
+    if args.year == '2021': dataset = "/SingleElectron/Run2016C-05Feb2018-v2/NANOAOD"
 elif args.name == 'MuonEG':
-    if args.year == '2018': dataset = "/MuonEG/Run2018A-Nano1June2019-v1/NANOAOD/"
+    if args.year == '2021': dataset = "/MuonEG/Run2018A-Nano1June2019-v1/NANOAOD"
 elif args.name == 'SingleMuon':
-    if args.year == '2018': dataset = "/MuonEG/Run2018A-Nano1June2019-v1/NANOAOD/"
+    if args.year == '2021': dataset = "/SingleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
 elif args.name == 'EGamma':
-    if args.year == '2018': dataset = "/SingleMuon/Run2018A-Nano1June2019-v1/NANOAOD/"
+    if args.year == '2021': dataset = "/EGamma/Run2018A-Nano1June2019-v1/NANOAOD"
 elif args.name == 'DoubleMuon':
-    if args.year == '2018': dataset = "/DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD/"
+    if args.year == '2021': dataset = "/DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
+elif args.name == 'TW':
+    if args.year == '2021': dataset = "/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
+elif args.name == 'ZZ':
+    if args.year == '2021': dataset = "/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+elif args.name == 'DY':
+    if args.year == '2021': dataset = "/DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+elif args.name == 'ZGJ':
+    if args.year == '2021': dataset = "/ZGToLLG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
+elif args.name == 'ZGJ2':
+    if args.year == '2021': dataset = "/ZGToLLG_01J_LoosePtlPtg_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
 else:
     print "unknown dataset name"
     sys.exit(0)
+
+
+
 
 
 
@@ -98,7 +109,10 @@ with open ("filepath_"+args.name+"_"+args.year+".txt","r") as f0:
             f.write("scramv1 project CMSSW CMSSW_10_2_22\n")
             f.write("cd CMSSW_10_2_22/src\n")
             f.write("eval `scramv1 runtime -sh`\n\n")
-            f.write("git clone https://github.com/phy-guanzh/nanoAOD-WVG.git PhysicsTools/NanoAODTools\n")
+            f.write("git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODTools\n")
+            f.write("cd PhysicsTools/NanoAODTools\n")
+            f.write("git clone https://github.com/phy-guanzh/WWG.git\n")
+            f.write("mv WWG/* .\n")
             f.write("scram b -j4\n\n")
             f.write("cd PhysicsTools/NanoAODTools/WWG_selector\n")
             # f.write("cp ${initial_path}/filepath_"+args.name+"_"+args.year+".txt .\n" )
