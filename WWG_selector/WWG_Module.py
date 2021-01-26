@@ -195,8 +195,8 @@ class WWG_Producer(Module):
                 continue
             if not (photons[i].isScEtaEE or photons[i].isScEtaEB):
                 continue
-            if photons[i].pixelSeed:
-                continue
+            #if photons[i].pixelSeed:
+            #    continue
             pass_lepton_dr_cut = True
             for j in range(0,len(muons_select)):
                 if deltaR(muons[muons_select[j]].eta,muons[muons_select[j]].phi,photons[i].eta,photons[i].phi) < 0.5:
