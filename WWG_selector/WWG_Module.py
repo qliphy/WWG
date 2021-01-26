@@ -166,6 +166,7 @@ class WWG_Producer(Module):
             if muons[i].mediumId == True:
                 muons_select.append(i)
                 muon_pass += 1
+                leptons_select.append(i)
 
 
         # selection on electrons
@@ -178,6 +179,7 @@ class WWG_Producer(Module):
                 if electrons[i].cutBased >= 3:
                     electrons_select.append(i)
                     electron_pass += 1
+                    leptons_select.append(i)
 
         if len(electrons_select)+len(muons_select) != 2:      #reject event if there are not exactly two leptons
             none_2lepton_reject += 1
@@ -217,11 +219,12 @@ class WWG_Producer(Module):
         njets = 0
         for i in range(0,len(jets)):
             btag_cut = False
-            if jets[i].btagCMVA > -0.5884:  # cMVAv2L
+            #if jets[i].btagCMVA > -0.5884:  # cMVAv2L
             # if jets[i].btagCMVA > 0.4432:  # cMVAv2M
             # if jets[i].btagCSVV2 > 0.5426:  # CSVv2L
             # if jets[i].btagCSVV2 > 0.8484:  # CSVv2M
-            # if jets[i].btagDeepB > 0.2219:  # DeepCSVL
+            #if jets[i].btagDeepB > 0.2219:  # DeepCSVL
+            if jets[i].btagDeepB > 0.4184:  # DeepCSVL
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVM
                 btag_cut = True      #initialize
             if abs(jets[i].eta) > 4.7:
@@ -251,6 +254,36 @@ class WWG_Producer(Module):
         if njets >2 :
             njet_reject +=1
             return False
+
+        electrons_is_real=[]
+        photons_is_real=[]
+        muons_is_real = []
+
+        if hasattr(event, 'nGenPart'):
+            genparts = Collection(event, "GenPart")
+        try:
+            for i,lep in enumerate(electrons_select):
+                is_real_flag=False
+                for j,genpart in enumerate(genparts):
+                    if genpart.pt>5 and abs(genpart.pdgId)==abs(electrons[electrons_select[i]].pdgId) and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3:
+                        is_real_flag=True
+                        break
+                electrons_is_real.append(is_real_flag)
+            for i, lep in enumerate(muons_select):
+                is_real_flag = False
+                for j, genpart in enumerate(genparts):
+                    if genpart.pt > 5 and abs(genpart.pdgId) == abs(muons[muons_select[i]].pdgId) and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
+                            is_real_flag = True
+                            break
+                    muons_is_real.append(is_real_flag)
+            for i, lep in enumerate(photons_select):
+                is_real_flag = False
+                for j, genpart in enumerate(genparts):
+                    if genpart.pt > 5 and abs(genpart.pdgId) == abs(photons[photons_select[i]].pdgId) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi, genpart.eta,genpart.phi) < 0.3:
+                        is_real_flag = True
+                        break
+             photons_is_real.append(is_real_flag)
+
         #dilepton mass selection and channel selection
         channel = 0 
         # emu:     1
