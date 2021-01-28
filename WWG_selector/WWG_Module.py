@@ -238,12 +238,12 @@ class WWG_Producer(Module):
             # if jets[i].btagCSVV2 > 0.5426:  # CSVv2L
             # if jets[i].btagCSVV2 > 0.8484:  # CSVv2M
             #if jets[i].btagDeepB > 0.2219:  # DeepCSVL
-            # if jets[i].btagDeepB > 0.4184:  # DeepCSVM
+            if jets[i].btagDeepB > 0.4184:  # DeepCSVM
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVL
-            #    btag_cut = True      #initialize
+                btag_cut = True      #initialize
             if abs(jets[i].eta) > 4.7:
                 continue
-            if jets[i].pt<15:
+            if jets[i].pt<30:
                 continue
             for j in range(0,len(photons_select)):          # delta R cut, if all deltaR(lep,jet) and deltaR(gamma,jet)>0.3, consider jet as a b jet
                 if deltaR(jets[i].eta,jets[i].phi,photons[photons_select[j]].eta,photons[photons_select[j]].phi) < 0.5:
@@ -265,9 +265,9 @@ class WWG_Producer(Module):
                 njets += 1
         #njets = njets + 1
         print ("njets",njets)
-        if njets >=2 :
-            njet_reject +=1
-            return False
+        #if njets >=2 :
+        #    njet_reject +=1
+        #    return False
 
         electrons_is_real=[]
         photons_is_real=[]
@@ -296,7 +296,7 @@ class WWG_Producer(Module):
             for i, pho in enumerate(photons_select):
                 is_real_flag = False
                 for j, genpart in enumerate(genparts):
-                    if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlag & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
+                    if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
                         is_real_flag = True
                         break
                 photons_is_real.append(is_real_flag)
