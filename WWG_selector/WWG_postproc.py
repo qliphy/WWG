@@ -142,7 +142,7 @@ else:
         p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,outputbranchsel="WWG_output_branch.txt")
         p.run()
     elif args.kind =='MC':
-        if args.yesr=='2018':
+        if args.year=='2018':
             p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,outputbranchsel="WWG_output_branch.txt")
             p.run()
         elif args.year=='2017':

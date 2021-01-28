@@ -109,7 +109,8 @@ class WWG_Producer(Module):
         photons_select = []
         electrons_select = []
         muons_select = [] 
-        jets_select = [] 
+        jets_select = []
+        leptons_select=[]
         if hasattr(event,'nGenPart'):
             genparts = Collection(event, "GenPart")
 
@@ -162,7 +163,7 @@ class WWG_Producer(Module):
     #else:
     #    n_minus +=1
 
-        if  event.MET_pt>60:
+        if  event.MET_pt>20:
             MET_pass += 1
         else:
             return False  
@@ -173,7 +174,7 @@ class WWG_Producer(Module):
                 continue
             if abs(muons[i].eta) > 2.5:
                 continue
-            if muons[i].pfRelIso04_all < 0.25:
+            if muons[i].pfRelIso04_all < 0.4:
                 continue   
             if muons[i].mediumId == True:
                 muons_select.append(i)
@@ -199,16 +200,16 @@ class WWG_Producer(Module):
 
         # selection on photons
         for i in range(0,len(photons)):
-            if not photons[i].electronVeto:
-                continue
+            #if not photons[i].electronVeto:
+            #    continue
             if photons[i].pt < 20:
                 continue
             if abs(photons[i].eta) > 2.5:
                 continue
             if not (photons[i].isScEtaEE or photons[i].isScEtaEB):
                 continue
-            #if photons[i].pixelSeed:
-            #    continue
+            if photons[i].pixelSeed:
+                continue
             pass_lepton_dr_cut = True
             for j in range(0,len(muons_select)):
                 if deltaR(muons[muons_select[j]].eta,muons[muons_select[j]].phi,photons[i].eta,photons[i].phi) < 0.5:
@@ -223,12 +224,13 @@ class WWG_Producer(Module):
                 photons_select.append(i)
                 photon_pass += 1
 
-        if not len(photons_select)==1:
+        if  len(photons_select)<1:
             none_photon_reject +=1 
             return False                        #reject event if there is not exact one photon in the event 
 
 
         njets = 0
+        print len(jets)
         for i in range(0,len(jets)):
             btag_cut = False
             #if jets[i].btagCMVA > -0.5884:  # cMVAv2L
@@ -236,12 +238,12 @@ class WWG_Producer(Module):
             # if jets[i].btagCSVV2 > 0.5426:  # CSVv2L
             # if jets[i].btagCSVV2 > 0.8484:  # CSVv2M
             #if jets[i].btagDeepB > 0.2219:  # DeepCSVL
-            if jets[i].btagDeepB > 0.4184:  # DeepCSVL
-            # if jets[i].btagDeepB > 0.6324:  # DeepCSVM
-                btag_cut = True      #initialize
+            # if jets[i].btagDeepB > 0.4184:  # DeepCSVM
+            # if jets[i].btagDeepB > 0.6324:  # DeepCSVL
+            #    btag_cut = True      #initialize
             if abs(jets[i].eta) > 4.7:
                 continue
-            if jets[i].pt<30:
+            if jets[i].pt<15:
                 continue
             for j in range(0,len(photons_select)):          # delta R cut, if all deltaR(lep,jet) and deltaR(gamma,jet)>0.3, consider jet as a b jet
                 if deltaR(jets[i].eta,jets[i].phi,photons[photons_select[j]].eta,photons[photons_select[j]].phi) < 0.5:
@@ -258,12 +260,12 @@ class WWG_Producer(Module):
                     btag_cut = True
             if btag_cut == True:
                 btagjet_reject += 1
-                return False
-            else:
+                #return False
                 jets_select.append(i)
                 njets += 1
-        njets = njets + 1
-        if njets >2 :
+        #njets = njets + 1
+        print ("njets",njets)
+        if njets >=2 :
             njet_reject +=1
             return False
 
@@ -277,7 +279,6 @@ class WWG_Producer(Module):
 
         if hasattr(event, 'nGenPart'):
             genparts = Collection(event, "GenPart")
-        try:
             for i,lep in enumerate(electrons_select):
                 is_real_flag=False
                 for j,genpart in enumerate(genparts):
@@ -295,10 +296,10 @@ class WWG_Producer(Module):
             for i, pho in enumerate(photons_select):
                 is_real_flag = False
                 for j, genpart in enumerate(genparts):
-                    if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlag & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask)) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
+                    if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlag & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
                         is_real_flag = True
                         break
-             photons_is_real.append(is_real_flag)
+                photons_is_real.append(is_real_flag)
 
         #dilepton mass selection and channel selection
         channel = 0 
@@ -308,11 +309,12 @@ class WWG_Producer(Module):
 
         # emu
         dileptonmass = -1.0
-        if len(muons_select)==1 and len(electrons_select)==1:  # emumu channel 
+        if len(muons_select)==1 and len(electrons_select)==1:  # emu channel 
             #print (muons[muons_select[0]].pdgId,electrons[electrons_select[0]].pdgId)
             if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,electrons[electrons_select[0]].eta,electrons[electrons_select[0]].phi) < 0.5:
                 deltar_reject +=1
                 return False
+            
             if muons[muons_select[0]].charge * (electrons[electrons_select[0]].charge) < 0:
                 dileptonmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
                 dileptongmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
@@ -322,10 +324,10 @@ class WWG_Producer(Module):
                 dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
                 met_emu = event.MET_pt
      
-                if dileptonmass >= 50 and dileptonmass <= 100:
+                if dileptonmass <= 20:
                     mll_reject +=1
                     return False
-                if dileptonpt <= 40: 
+                if dileptonpt <= 30: 
                     pt_reject +=1
                     return False
                 # if dileptonmass >= 60 and dileptonmass <= 120:
@@ -345,6 +347,7 @@ class WWG_Producer(Module):
             if deltaR(electrons[electrons_select[0]].eta,electrons[electrons_select[0]].phi,electrons[electrons_select[1]].eta,electrons[electrons_select[1]].phi)<0.5:
                 deltar_reject +=1
                 return False
+             
             if electrons[electrons_select[0]].charge * electrons[electrons_select[1]].charge <0:
                 dileptonmass = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
                 dileptongmass = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
@@ -354,11 +357,13 @@ class WWG_Producer(Module):
                 dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
                 
                 met_ee = event.MET_pt
-                if dileptonmass >= 50 and dileptonmass <= 100:
+                if dileptonmass >= 50 and dileptonmass <= 100 and  dileptonmass <=40:
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
                     pt_reject +=1
+                    return False
+                if met_ee <55:
                     return False
             else:
                 different_charge_reject +=1
@@ -384,11 +389,13 @@ class WWG_Producer(Module):
                 dileptongmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
                 met_mumu = event.MET_pt
                 dileptonpt_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
-                if dileptonmass >= 50 and dileptonmass <= 100:
+                if dileptonmass >= 75 and dileptonmass <= 105 and  dileptonmass <=40:
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
                     pt_reject +=1
+                    return False
+                if met_mumu <55:
                     return False
                 # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
             else:
