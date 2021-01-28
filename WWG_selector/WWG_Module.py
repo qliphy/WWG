@@ -153,10 +153,10 @@ class WWG_Producer(Module):
         dileptonpt_mumu=-99
         met_mumu=-99
         n_num +=1
-        if event.Generator_weight > 0 :
-            n_posi +=1
-        else:
-            n_minus +=1
+        #if event.Generator_weight > 0 :
+        #    n_posi +=1
+        #else:
+        #    n_minus +=1
 
     #if event.Generator_weight > 0 :
     #    n_posi +=1
