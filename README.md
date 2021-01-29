@@ -7,6 +7,7 @@ Dedicated for WWG analysis on cms-connect environment
 ## content
 
 - [Download and setup](#Download-and-setup)
+- [Generate Signal Sample](#Generate Signal Sample)
 - [Baseline selection](#Baseline-selection)
 - [Condor mode](#Condor-mode)
 
