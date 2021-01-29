@@ -27,6 +27,18 @@ mv WWG/* .
 scram b
 ```
 <br>
+<br>
+
+## <span id="Generate Signal Sample"> Generate Signal Sample </span> 
+This will generate signal samples for WWA. you can generate 3 different schemes signal.you have to    
+```bash
+voms-proxy-init -voms cms -valid 192:00
+
+python submit_job.py
+or
+condor_submit submit_*.jdl
+```
+<br>
 
 ## <span id="Baseline-selection"> Baseline selection </span>
 In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
@@ -43,11 +55,11 @@ In condor folder, `condor_for_postproc.py` is designed for preparing codes and s
 
 First you need to setup grid certification
 ```bash
-voms-proxy-info -voms cms -valid 192:00
+voms-proxy-init -voms cms -valid 192:00
 ```
 Modify `Proxy_path` in `condor_for_post.py` according to you own settings
 
 ```bash
-python condor_for_postproc.py -y 2016 -n WZ
+python condor_for_postproc.py -y 2018 -n DY -k MC
 ```
 
