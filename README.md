@@ -7,7 +7,7 @@ Dedicated for WWG analysis on cms-connect environment
 ## content
 
 - [Download and setup](#Download-and-setup)
-- [Generate Signal Sample](#Generate Signal Sample)
+- [Generate Signal Sample](#Generate-Signal-Sample)
 - [Baseline selection](#Baseline-selection)
 - [Condor mode](#Condor-mode)
 
@@ -29,7 +29,7 @@ scram b
 <br>
 <br>
 
-## <span id="Generate Signal Sample"> Generate Signal Sample </span> 
+## <span id="Generate-Signal-Sample"> Generate Signal Sample </span> 
 
 This will generate signal samples for WWA. you can generate 3 different schemes signal.you have to    
 ```bash
