@@ -28,7 +28,6 @@ scram b
 ```
 <br>
 <br>
-
 ## <span id="Generate Signal Sample"> Generate Signal Sample </span> 
 This will generate signal samples for WWA. you can generate 3 different schemes signal.you have to    
 ```bash
