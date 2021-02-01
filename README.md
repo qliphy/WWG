@@ -9,6 +9,7 @@ Dedicated for WWG analysis on cms-connect environment
 - [Download and setup](#Download-and-setup)
 - [Generate Signal Sample](#Generate-Signal-Sample)
 - [Baseline selection](#Baseline-selection)
+- [Crab mode](#Crab-mode)
 - [Condor mode](#Condor-mode)
 
 --------------
@@ -47,7 +48,10 @@ In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). U
 ```bash
 python WWG_postproc.py -h
 ```
-
+<br>
+## <span id="Crab-mode"> Crab mode </span>
+python3 whjj/ntuple/create_cfg.py -y 2018 -u 1 -m crab -k MC
+crab submit -c cfg2018_mc/DY_cfg.py
 
 <br>
 
