@@ -59,7 +59,6 @@ python3 whjj/ntuple/create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
 
-<br>
 ## <span id="Condor-mode"> Condor mode </span>
 In condor folder, `condor_for_postproc.py` is designed for preparing codes and submitting them to HTcondor. The purpose is to run over samples on DAS in parallel. Similarly, it has `-f` and `-n` arguments.
 
@@ -72,4 +71,4 @@ Modify `Proxy_path` in `condor_for_post.py` according to you own settings
 ```bash
 python condor_for_postproc.py -y 2018 -n DY -k MC
 ```
-<br>
+
