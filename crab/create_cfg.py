@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('-v','--version', help='which version should be', default='1')
 parser.add_argument('-u','--units_per_job', help='how many units in one job', default='1')
 parser.add_argument('-k','--kind', help='Is it for data? Default: False', default= 'MC')
-parser.add_argument('-p','--scriptPath', help='where to find the scripts',default= './WWG/WWG_selector/')
+parser.add_argument('-p','--scriptPath', help='where to find the scripts',default= '../WWG_selector/')
 parser.add_argument('-m','--mode', help='crab? local? condor?',default= 'local')
 group = parser.add_mutually_exclusive_group()  # type: _MutuallyExclusiveGroup
 group.add_argument('-y','--year', help='run on which year', choices=('2016','2017','2018'))
