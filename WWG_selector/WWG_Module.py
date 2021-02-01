@@ -67,9 +67,8 @@ class WWG_Producer(Module):
         self.out.branch("lepton2_pt_emu",  "F")
         self.out.branch("lepton1_pt_mumu",  "F")
         self.out.branch("lepton2_pt_mumu",  "F")
-        self.out.branch("wminus_lepton1_pt",  "F")
-        self.out.branch("wminus_lepton1_eta",  "F")
-        self.out.branch("wminus_lepton1_phi",  "F")
+
+
         self.out.branch("Njets",  "i")
         self.out.branch("Njets_emu",  "i")
         self.out.branch("Njets_mumu",  "i")
@@ -91,6 +90,9 @@ class WWG_Producer(Module):
         self.out.branch("Generator_weight","F")
         self.out.branch("lepton_motherid_mumu",  "F")
         self.out.branch("lepton_motherid_emu",  "F")
+        self.out.branch("electrons_is_real", "F")
+        self.out.branch("muons_is_real", "F")
+        self.out.branch("photons_is_real", "F")
 
         self.out.branch("channel_mark","i")
 
@@ -143,6 +145,9 @@ class WWG_Producer(Module):
         dileptongmass=-99
         dileptonpt=-99
         njets=-99
+        njets_ee = -99
+        njets_emu = -99
+        njets_mumu = -99
         dileptonmass_emu=-99
         dileptonpt_emu=-99
         met_emu=-99
@@ -292,7 +297,7 @@ class WWG_Producer(Module):
                     if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
                             is_real_flag = True
                             break
-                    muons_is_real.append(is_real_flag)
+                muons_is_real.append(is_real_flag)
             for i, pho in enumerate(photons_select):
                 is_real_flag = False
 
@@ -319,7 +324,7 @@ class WWG_Producer(Module):
             
             if muons[muons_select[0]].charge * (electrons[electrons_select[0]].charge) < 0:
                 dileptonmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
-                dileptongmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
+                #dileptongmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
                 dileptonpt = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
                 dileptonmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
                 dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
@@ -359,7 +364,7 @@ class WWG_Producer(Module):
                 dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
                 
                 met_ee = event.MET_pt
-                if dileptonmass >= 50 and dileptonmass <= 100 and  dileptonmass <=40:
+                if dileptonmass >= 75 and dileptonmass <= 105 and  dileptonmass <=40:
                     mll_reject +=1
                     return False
                 if dileptonpt <= 40: 
@@ -418,13 +423,16 @@ class WWG_Producer(Module):
 
 
 
-        self.out.fillBranch("MET",event.MET_pt)
-        self.out.fillBranch("photon_pt",photons[photons_select[0]].pt)
-        self.out.fillBranch("photon_eta",photons[photons_select[0]].eta)
-        self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
-        self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
-        self.out.fillBranch("Njets",njets)
+        #self.out.fillBranch("MET",event.MET_pt)
+        #self.out.fillBranch("photon_pt",photons[photons_select[0]].pt)
+        #self.out.fillBranch("photon_eta",photons[photons_select[0]].eta)
+        #self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
+        #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
+        #self.out.fillBranch("Njets",njets)
         if channel == 1:
+            self.out.fillBranch("electrons_is_real",electrons_is_real)
+            self.out.fillBranch("photons_is_real", photons_is_real)
+            self.out.fillBranch("muons_is_real", muons_is_real)
             self.out.fillBranch("dilepton_mass_emu",dileptonmass_emu)
             self.out.fillBranch("dilepton_g_mass_emu",dileptongmass_emu)
             self.out.fillBranch("dilepton_pt_emu",dileptonpt_emu)
@@ -444,8 +452,11 @@ class WWG_Producer(Module):
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
         elif channel == 2:
-            self.out.fillBranch("Njets",njets) 
-            self.out.fillBranch("dilepton_mass_ee",dileptonmass_ee)
+            #self.out.fillBranch("Njets",njets)
+            self.out.fillBranch("electrons_is_real",electrons_is_real)
+            self.out.fillBranch("photons_is_real", photons_is_real)
+            self.out.fillBranch("muons_is_real", muons_is_real)
+            self.out.fillBranch("dilepton_mass_ee", dileptonmass_ee)
             self.out.fillBranch("dilepton_g_mass_ee",dileptongmass_ee)
             self.out.fillBranch("dilepton_pt_ee",dileptonpt_ee)
             self.out.fillBranch("Njets_ee",njets)
@@ -464,7 +475,10 @@ class WWG_Producer(Module):
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
-            self.out.fillBranch("Njets",njets) 
+            #self.out.fillBranch("Njets",njets)
+            self.out.fillBranch("electrons_is_real",electrons_is_real)
+            self.out.fillBranch("photons_is_real", photons_is_real)
+            self.out.fillBranch("muons_is_real", muons_is_real)
             self.out.fillBranch("dilepton_mass_mumu",dileptonmass_mumu)
             self.out.fillBranch("dilepton_g_mass_mumu",dileptongmass_mumu)
             self.out.fillBranch("dilepton_pt_mumu",dileptonpt_mumu)
@@ -482,10 +496,10 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
 
 
-        self.out.fillBranch("event",event.event)
-        self.out.fillBranch("dilepton_mass",dileptonmass)
-        self.out.fillBranch("dilepton_g_mass",dileptongmass)
-        self.out.fillBranch("dilepton_pt",dileptonpt)
+        #self.out.fillBranch("event",event.event)
+        #self.out.fillBranch("dilepton_mass",dileptonmass)
+        #self.out.fillBranch("dilepton_g_mass",dileptongmass)
+        #self.out.fillBranch("dilepton_pt",dileptonpt)
         #self.out.fillBranch("Generator_weight",event.Generator_weight)
         self.out.fillBranch("channel_mark",channel)
         return True
