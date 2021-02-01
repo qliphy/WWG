@@ -90,9 +90,9 @@ class WWG_Producer(Module):
         self.out.branch("Generator_weight","F")
         self.out.branch("lepton_motherid_mumu",  "F")
         self.out.branch("lepton_motherid_emu",  "F")
-        self.out.branch("electrons_is_real", "F")
-        self.out.branch("muons_is_real", "F")
-        self.out.branch("photons_is_real", "F")
+        self.out.branch("electrons_is_real", "O")
+        self.out.branch("muons_is_real", "O")
+        self.out.branch("photons_is_real", "O")
 
         self.out.branch("channel_mark","i")
 
