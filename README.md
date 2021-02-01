@@ -49,9 +49,6 @@ In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). U
 python WWG_postproc.py -h
 ```
 
-
-<br>
-## <span id="Baseline-selection"> Baseline selection </span>
 ## <span id="Crab-mode"> Crab mode </span>
 For Crab job, you can:
 
