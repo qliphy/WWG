@@ -42,12 +42,14 @@ condor_submit submit_*.jdl
 ```
 <br>
 
+
 ## <span id="Baseline-selection"> Baseline selection </span>
 In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
 
 ```bash
 python WWG_postproc.py -h
 ```
+
 
 ## <span id="Crab-mode"> Crab mode </span>
 for Crab job, you can use creat_cfg.py to generate the crab scripts,and you can choose your datasets by changing dataset_2018_mc_nano_v7.py or dataset_2018_data_nano_v7.py
@@ -56,6 +58,7 @@ for Crab job, you can use creat_cfg.py to generate the crab scripts,and you can 
 python3 create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
+
 
 ## <span id="Condor-mode"> Condor mode </span>
 In condor folder, `condor_for_postproc.py` is designed for preparing codes and submitting them to HTcondor. The purpose is to run over samples on DAS in parallel. Similarly, it has `-f` and `-n` arguments.
