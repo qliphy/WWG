@@ -48,16 +48,17 @@ In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). U
 ```bash
 python WWG_postproc.py -h
 ```
-<br>
+
 
 <br>
 ## <span id="Crab-mode"> Crab mode </span>
+For Crab job, you can:
+
 ```bash
 python3 whjj/ntuple/create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
 
-<br>
 <br>
 ## <span id="Condor-mode"> Condor mode </span>
 In condor folder, `condor_for_postproc.py` is designed for preparing codes and submitting them to HTcondor. The purpose is to run over samples on DAS in parallel. Similarly, it has `-f` and `-n` arguments.
