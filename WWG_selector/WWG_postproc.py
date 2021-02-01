@@ -63,42 +63,11 @@ PrefCorr_2017 = lambda: PrefCorr("L1prefiring_jetpt_2017BtoF.root","L1prefiring_
 if args.file == '':
     print "no local file input, use DAS file"
     dataset = ''
-    if args.kind =='MC':
-        if args.name == 'TZQ':
-            if args.year == '2021': dataset = "/tZq_ll_4f_13TeV-amcatnlo-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8_ext1-v1/NANOAODSIM"
-        elif args.name == 'WW':
-            if args.year == '2021': dataset = "/WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
-        elif args.name == 'TTGJ':
-            if args.year == '2021': dataset = "/TTGJets_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
-        elif args.name == 'WZ':
-            if args.year == '2020': dataset = "/WZTo3LNu_13TeV-powheg-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
-        elif args.name == 'TW':
-            if args.year == '2021': dataset = "/TWJToLNuLNu_EWK_13TeV-madgraph-pythia8/RunIISummer16NanoAODv7-PUMoriond17_Nano02Apr2020_102X_mcRun2_asymptotic_v8-v1/NANOAODSIM"
-        elif args.name == 'ZZ':
-            if args.year == '2021': dataset = "/ZZTo2L2Nu_13TeV_powheg_pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
-        elif args.name == 'DY':
-            if args.year == '2021': dataset = "/DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
-        elif args.name == 'ZGJ':
-            if args.year == '2021': dataset = "/ZGToLLG_01J_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIFall17NanoAODv7-PU2017_12Apr2018_Nano02Apr2020_102X_mc2017_realistic_v8-v1/NANOAODSIM"
-        elif args.name == 'ZGJ2':
-            if args.year == '2021': dataset = "/ZGToLLG_01J_LoosePtlPtg_5f_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIIAutumn18NanoAODv7-Nano02Apr2020_102X_upgrade2018_realistic_v21-v1/NANOAODSIM"
-        else:
-            print
-            "unknown dataset name"
-            sys.exit(0)
-    if  args.kind =='data':
-        if args.name == 'SingleElectron':
-            if args.year == '2018': dataset = "/SingleElectron/Run2016C-05Feb2018-v2/NANOAOD"
-        elif args.name == 'MuonEG':
-            if args.year == '2018': dataset = "/MuonEG/Run2018A-Nano1June2019-v1/NANOAOD"
-        elif args.name == 'SingleMuon':
-            if args.year == '2018': dataset = "/SingleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
-        elif args.name == 'EGamma':
-            if args.year == '2018': dataset = "/EGamma/Run2018A-Nano1June2019-v1/NANOAOD"
-        elif args.name == 'DoubleMuon':
-            if args.year == '2018': dataset = "/DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD"
-
-    files = []
+    if 'crab' in args.mode:
+        from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
+        files = inputFiles()
+        jsoninput = runsAndLumis()
+        fwkjobreport = True
 
     # condor can't use dasgoclient, so we should upload the filepath for condor run. sth. different with local run here
     if 'condor' in args.mode:
@@ -138,21 +107,21 @@ else:
                 files.append(i)
 
         print 'input files: ',files
-    if args.kind == 'data':
-        p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,outputbranchsel="WWG_output_branch.txt")
+if args.kind == 'data':
+    p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+    p.run()
+elif args.kind =='MC':
+    if args.year=='2018':
+        p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
         p.run()
-    elif args.kind =='MC':
-        if args.year=='2018':
-            p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,outputbranchsel="WWG_output_branch.txt")
-            p.run()
-        elif args.year=='2017':
-            p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer(), puWeight_2017()], provenance=True,outputbranchsel="WWG_output_branch.txt")
-            p.run()
-        elif args.year == '2016':
-            p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer(), puWeight_2016()], provenance=True,outputbranchsel="WWG_output_branch.txt")
-            p.run()
-    else:
-        print "Unknown dataset kind "
+    elif args.year=='2017':
+        p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer(), puWeight_2017()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+        p.run()
+    elif args.year == '2016':
+        p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer(), puWeight_2016()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+        p.run()
+else:
+    print "Unknown dataset kind "
 
 
 
