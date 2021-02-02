@@ -29,12 +29,12 @@ year=""
 for i in "$@"
 do
   case $i in
-      isdata=*)
+      kind=*)
       kind="${i#*=}"
       ;;
   esac
   case $i in
-      iswhjj=*)
+      mode=*)
       mode="${i#*=}"
       ;;
   esac
@@ -47,7 +47,7 @@ done
 
 echo Found Proxy in: $X509_USER_PROXY
 #if [ $isdata == "1" ]; then
-python whjj_postproc.py -k $kind -m $mode -y $year
+python WWG_postproc.py -k $kind -m $mode -y $year
 #else
 #  if [ $iswwa == "1" ]; then
 #      python whjj_postproc.py -k $kind -m -y $year
