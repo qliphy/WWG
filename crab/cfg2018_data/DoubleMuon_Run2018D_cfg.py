@@ -10,8 +10,8 @@ config.General.workArea = 'crab2018'
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'PSet.py'
-config.JobType.scriptExe = './WWG/WWG_selector//WWG_crab_script.sh'
-config.JobType.inputFiles = ['../scripts/haddnano.py','./WWG/WWG_selector//WWG_postproc.py','./WWG/WWG_selector//WWG_Module.py','./WWG/WWG_selector//branches/WWG_keep_and_drop_2018.txt','./WWG/WWG_selector//branches/WWG_outbranch_data_2018.txt'] #hadd nano will not be needed once nano tools are in cmssw
+config.JobType.scriptExe = '../WWG_selector//WWG_crab_script.sh'
+config.JobType.inputFiles = ['../scripts/haddnano.py','../WWG_selector//WWG_postproc.py','../WWG_selector//WWG_Module.py','../WWG_selector//branches/WWG_keep_and_drop_2018.txt','../WWG_selector//branches/WWG_outbranch_data_2018.txt'] #hadd nano will not be needed once nano tools are in cmssw
 config.JobType.scriptArgs = ['kind=data','mode=crab','year=2018']
 config.JobType.sendPythonFolder  = True
 
