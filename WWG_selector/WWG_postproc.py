@@ -70,23 +70,8 @@ if args.file == '':
         fwkjobreport = True
 
     # condor can't use dasgoclient, so we should upload the filepath for condor run. sth. different with local run here
-    if 'condor' in args.mode:
+    elif 'condor' in args.mode:
         pass
-
-    else:
-        search.getLFN(dataset, args.name+"_"+args.year)
-        with open ("filepath_"+args.name+"_"+args.year+".txt","r") as f:
-            lines = f.readlines()
-            for line in lines:
-                line = line.rstrip('\n')
-                files.append(search.getValidSite(line)+line)
-
-    print 'from DAS input files: ',files
-    p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",
-                      modules=[countHistogramsProducer(), muonScaleRes2018(), jmeCorrections_ak4_2018(),
-                               jmeCorrections_ak8_2018(), WWG.WWG_Producer(), puWeight_2018()], provenance=True,
-                      outputbranchsel="WWG_output_branch.txt")
-    p.run()
 
 else:    
     files = []
