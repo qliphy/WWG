@@ -33,7 +33,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
     signals=[]
     _Samples={}
     if year == '2018':
-        outdir = '/store/user/guanz/WWG_2018' + version
+        outdir = '/store/user/zguan/WWG_2018' + version
         golden_json = "\'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt\'"
         if 'data' in kind:
             mymodule=importlib.import_module(datasets['data'][year])
@@ -44,7 +44,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
             _Samples=mymodule.Samples
             cfg_dir = os.getcwd() + '/cfg2018_mc/'
     elif year == '2017':
-        outdir = '/store/user/guanz/WWG_2017' + version
+        outdir = '/store/user/zguan/WWG_2017' + version
         golden_json = "\'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt\'"
         if 'data' in kind:
             mymodule=importlib.import_module(datasets['data'][year])
@@ -56,7 +56,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
             cfg_dir = os.getcwd() + '/cfg2017_mc/'
     elif year == '2016':
         cfg_dir = os.getcwd() + '/cfg2016/'
-        outdir = '/store/user/guanz/WWG_2016' + version
+        outdir = '/store/user/zguan/WWG_2016' + version
         golden_json = "\'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_ReReco_07Aug2017_Collisions16_JSON.txt\'"
         if 'data' in kind:
             mymodule=importlib.import_module(datasets['data'][year])
@@ -69,7 +69,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
     else:
         return
     
-    site = "T2_CN_Beijing"
+    site = "T3_CH_CERNBOX"
     #site = "T2_CH_CERNBOX"
 
     print(f">>>>>>>>>>>>>>>>>>>> created directory for {year} : {cfg_dir}")

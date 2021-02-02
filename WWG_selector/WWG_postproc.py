@@ -16,7 +16,7 @@ import WWG_Module as WWG
 import argparse
 import re
 import optparse
-import DAS_filesearch as search
+
 
 
 parser = argparse.ArgumentParser(description='baseline selection')
@@ -78,12 +78,14 @@ else:
     # condor can't use dasgoclient, so we should upload the filepath for condor run. sth. different with local run here
     # designed for single file here in order to run in parallel
     if 'condor' in args.mode:
+        import DAS_filesearch as search
         files.append(search.getValidSite(args.file) + args.file)
         print 'input files: ',files
         print 'test'
 
     # local specific file input, also support root://xxx    
     else:
+        import DAS_filesearch as search
         if not ',' in args.file:
             files.append(args.file)
 
