@@ -95,17 +95,17 @@ else:
 
         print 'input files: ',files
 if args.kind == 'data':
-    p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+    p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
     p.run()
 elif args.kind =='MC':
     if args.year=='2018':
-        p=PostProcessor(".",files,branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
     elif args.year=='2017':
-        p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer(), puWeight_2017()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer(), puWeight_2017()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
     elif args.year == '2016':
-        p = PostProcessor(".", files, branchsel="WWG_input_branch.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer(), puWeight_2016()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_output_branch.txt")
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer(), puWeight_2016()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
 else:
     print "Unknown dataset kind "
