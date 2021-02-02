@@ -55,6 +55,7 @@ python WWG_postproc.py -h
 for Crab job, you can use creat_cfg.py to generate the crab scripts,and you can choose your datasets by changing dataset_2018_mc_nano_v7.py or dataset_2018_data_nano_v7.py
 
 ```bash
+voms-proxy-init -voms cms -valid 192:00
 python3 create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
