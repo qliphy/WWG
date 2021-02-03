@@ -25,6 +25,7 @@ git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODT
 cd PhysicsTools/NanoAODTools
 git clone https://github.com/phy-guanzh/WWG.git
 mv WWG/* .
+mv WWG/crab/* crab/
 scram b
 ```
 <br>
