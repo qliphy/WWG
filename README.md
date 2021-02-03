@@ -8,7 +8,7 @@ Dedicated for WWG analysis on cms-connect environment
 
 - [Download and setup](#Download-and-setup)
 - [Generate Signal Sample](#Generate-Signal-Sample)
-- [Baseline selection](#Baseline-selection)
+- [Local mode](#Baseline-selection)
 - [Crab mode](#Crab-mode)
 - [Condor mode](#Condor-mode)
 
@@ -25,14 +25,16 @@ git clone https://github.com/cms-nanoAOD/nanoAOD-tools.git PhysicsTools/NanoAODT
 cd PhysicsTools/NanoAODTools
 git clone https://github.com/phy-guanzh/WWG.git
 mv WWG/* .
+mv WWG/crab/* crab/
 scram b
 ```
+
 <br>
 <br>
 
 ## <span id="Generate-Signal-Sample"> Generate Signal Sample </span> 
 
-This will generate signal samples for WWA. you can generate 3 different schemes signal.you have to    
+This will generate signal samples for WWA. you can generate 3 different schemes signal.you can    
 ```bash
 voms-proxy-init -voms cms -valid 192:00
 
@@ -43,12 +45,14 @@ condor_submit submit_*.jdl
 <br>
 
 
-## <span id="Baseline-selection"> Baseline selection </span>
+## <span id="Baseline-selection"> Local mode </span>
 In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
 
 ```bash
-python WWG_postproc.py -h
+python WWG_postproc.py -f *.root -k MC -y 2018
 ```
+
+<br>
 
 
 ## <span id="Crab-mode"> Crab mode </span>
@@ -59,6 +63,8 @@ voms-proxy-init -voms cms -valid 192:00
 python3 create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
+
+<br>
 
 
 ## <span id="Condor-mode"> Condor mode </span>
