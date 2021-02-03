@@ -8,7 +8,7 @@ Dedicated for WWG analysis on cms-connect environment
 
 - [Download and setup](#Download-and-setup)
 - [Generate Signal Sample](#Generate-Signal-Sample)
-- [Baseline selection](#Baseline-selection)
+- [Local mode](#Baseline-selection)
 - [Crab mode](#Crab-mode)
 - [Condor mode](#Condor-mode)
 
@@ -45,11 +45,11 @@ condor_submit submit_*.jdl
 <br>
 
 
-## <span id="Baseline-selection"> Baseline selection </span>
+## <span id="Baseline-selection"> Local mode </span>
 In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
 
 ```bash
-python WWG_postproc.py -h
+python WWG_postproc.py -f *.root -k MC -y 2018
 ```
 
 <br>
