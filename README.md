@@ -30,7 +30,6 @@ scram b
 ```
 <br>
 <br>
-
 ## <span id="Generate-Signal-Sample"> Generate Signal Sample </span> 
 
 This will generate signal samples for WWA. you can generate 3 different schemes signal.you have to    
@@ -60,6 +59,7 @@ voms-proxy-init -voms cms -valid 192:00
 python3 create_cfg.py -y 2018 -u 1 -m crab -k MC
 crab submit -c cfg2018_mc/DY_cfg.py
 ```
+
 
 
 ## <span id="Condor-mode"> Condor mode </span>
