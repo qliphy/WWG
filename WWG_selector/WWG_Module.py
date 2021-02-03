@@ -90,9 +90,9 @@ class WWG_Producer(Module):
         self.out.branch("Generator_weight","F")
         self.out.branch("lepton_motherid_mumu",  "F")
         self.out.branch("lepton_motherid_emu",  "F")
-        self.out.branch("electrons_is_real", "O")
-        self.out.branch("muons_is_real", "O")
-        self.out.branch("photons_is_real", "O")
+        self.out.branch("electrons_is_real", "I")
+        self.out.branch("muons_is_real", "I")
+        self.out.branch("photons_is_real", "I")
 
         self.out.branch("channel_mark","i")
 
@@ -276,9 +276,9 @@ class WWG_Producer(Module):
             njet_reject +=1
             return False
 
-        electrons_is_real=[]
-        photons_is_real=[]
-        muons_is_real = []
+        electrons_is_real=-99
+        photons_is_real=-99
+        muons_is_real = -99
 
         isprompt_mask = (1 << 0) #isPrompt
         isdirectprompttaudecayproduct_mask = (1 << 5) #isDirectPromptTauDecayProduct
@@ -287,28 +287,28 @@ class WWG_Producer(Module):
         if hasattr(event, 'nGenPart'):
             genparts = Collection(event, "GenPart")
             for i,lep in enumerate(electrons_select):
-                is_real_flag=False
+                is_real_flag=0
                 for j,genpart in enumerate(genparts):
                     if genpart.pt>5 and abs(genpart.pdgId)==11 and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3:
-                        is_real_flag=True
+                        is_real_flag=1
                         break
-                electrons_is_real.append(is_real_flag)
+                electrons_is_real=1
             for i, mu in enumerate(muons_select):
-                is_real_flag = False
+                is_real_flag = 0
                 for j, genpart in enumerate(genparts):
                     if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
-                            is_real_flag = True
+                            is_real_flag = 1
                             break
-                muons_is_real.append(is_real_flag)
+                muons_is_real=1
             for i, pho in enumerate(photons_select):
-                is_real_flag = False
+                is_real_flag = 0
 
                 for j, genpart in enumerate(genparts):
                     if photons[photons_select[i]].genPartIdx >=0:
                         if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
-                            is_real_flag = True
+                            is_real_flag =1
                             break
-                photons_is_real.append(is_real_flag)
+                photons_is_real=1
 
         #dilepton mass selection and channel selection
         channel = 0 
