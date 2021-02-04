@@ -179,7 +179,7 @@ class WWG_Producer(Module):
                 continue
             if abs(muons[i].eta) > 2.5:
                 continue
-            if muons[i].pfRelIso04_all < 0.25:
+            if muons[i].pfRelIso04_all > 0.25:
                 continue   
             if muons[i].mediumId == True:
                 muons_select.append(i)
@@ -286,29 +286,28 @@ class WWG_Producer(Module):
 
         if hasattr(event, 'nGenPart'):
             genparts = Collection(event, "GenPart")
+            is_real_flag = 0
             for i,lep in enumerate(electrons_select):
-                is_real_flag=0
                 for j,genpart in enumerate(genparts):
                     if genpart.pt>5 and abs(genpart.pdgId)==11 and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3:
                         is_real_flag=1
                         break
-                electrons_is_real=1
+            if is_real_flag == 1: electrons_is_real=1
+            is_real_flag = 0
             for i, mu in enumerate(muons_select):
-                is_real_flag = 0
                 for j, genpart in enumerate(genparts):
                     if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
                             is_real_flag = 1
                             break
-                muons_is_real=1
+            if is_real_flag == 1:  muons_is_real=1
+            is_real_flag = 0
             for i, pho in enumerate(photons_select):
-                is_real_flag = 0
-
                 for j, genpart in enumerate(genparts):
                     if photons[photons_select[i]].genPartIdx >=0:
                         if genpart.pt > 5 and abs(genpart.pdgId) == 22 and ((genparts[photons[photons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask) or (genparts[photons[photons_select[i]].genPartIdx].statusFlags & isfromhardprocess_mask == isfromhardprocess_mask)) and deltaR(photons[photons_select[i]].eta,photons[photons_select[i]].phi,genpart.eta,genpart.phi) < 0.3:
                             is_real_flag =1
                             break
-                photons_is_real=1
+            if is_real_flag == 1: photons_is_real=1
 
         #dilepton mass selection and channel selection
         channel = 0 
