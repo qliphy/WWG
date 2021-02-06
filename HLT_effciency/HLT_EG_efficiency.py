@@ -364,7 +364,7 @@ for k in lead_pt_min:
                 f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls)+"\n")
                 f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl)+"\n")
                 f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss)+"\n")
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll)+"\n")
                 f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls)+"\n")
                 f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl)+"\n")
                 f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss)+"\n")
@@ -393,7 +393,7 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll)+"\n")
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls)+"\n")
                 f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl)+"\n")
                 f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss)+"\n")
@@ -431,7 +431,7 @@ for k in lead_pt_min:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll)+"\n")
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))+"\n"
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls)+"\n")
                 f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl)+"\n")
                 f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss)+"\n")
                 f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll)+"\n")
