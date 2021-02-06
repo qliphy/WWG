@@ -69,6 +69,10 @@ emu_pass_hlt_lleta_sleta=0
 emu_pass_hlt_lleta_sseta=0
 emu_pass_hlt_lseta_sleta=0
 emu_pass_hlt_lseta_sseta=0
+mumu_pass_hlt_lleta_sleta=0
+mumu_pass_hlt_lleta_sseta=0
+mumu_pass_hlt_lseta_sleta=0
+mumu_pass_hlt_lseta_sseta=0
 
 class WWG_HLT(Module):
     def __init__(self):
@@ -93,15 +97,15 @@ class WWG_HLT(Module):
         global ee_pass_lleta_sleta
         global ee_pass_lleta_sseta
         global ee_pass_lseta_sleta
-        global ee_pass_lseta_sleta
+        global ee_pass_lseta_sseta
         global emu_pass_lleta_sleta
         global emu_pass_lleta_sseta
         global emu_pass_lseta_sleta
-        global emu_pass_lseta_sleta
+        global emu_pass_lseta_sseta
         global mumu_pass_lleta_sleta
         global mumu_pass_lleta_sseta
         global mumu_pass_lseta_sleta
-        global mumu_pass_lseta_sleta
+        global mumu_pass_lseta_sseta
         global ee_pass_hlt_lleta_sleta
         global ee_pass_hlt_lleta_sseta
         global ee_pass_hlt_lseta_sleta
@@ -114,7 +118,7 @@ class WWG_HLT(Module):
         global mumu_pass_hlt_lleta_sseta
         global mumu_pass_hlt_lseta_sleta
         global mumu_pass_hlt_lseta_sseta
-        N_init + =1
+        N_init +=1
         electrons = Collection(event, "Electron")
         muons = Collection(event, "Muon")
 
@@ -138,38 +142,38 @@ class WWG_HLT(Module):
                 if (muons[muons_select[0]].pt < lpt_max) and (muons[muons_select[0]].pt >lpt_min) and (electrons[electrons_select[0]].pt < spt_max) and (electrons[electrons_select[0]].pt > spt_min):
                     if (muons[muons_select[0]].eta > 1.47) and (electrons[electrons_select[0]].eta>1.47):
                         emu_pass_lleta_sleta += 1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lleta_sleta + =1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lleta_sleta +=1
                     if (muons[muons_select[0]].eta > 1.47) and (electrons[electrons_select[0]].eta < 1.47):
-                        emu_pass_lleta_sseta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lleta_sseta + = 1
+                        emu_pass_lleta_sseta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lleta_sseta += 1
                     if (muons[muons_select[0]].eta < 1.47) and (electrons[electrons_select[0]].eta > 1.47):
-                        emu_pass_lseta_sleta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lseta_sleta + = 1
+                        emu_pass_lseta_sleta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lseta_sleta += 1
                     if (muons[muons_select[0]].eta < 1.47) and (electrons[electrons_select[0]].eta < 1.47):
-                        emu_pass_lseta_sseta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lseta_sseta + = 1
+                        emu_pass_lseta_sseta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lseta_sseta += 1
             else:
                 if (muons[muons_select[0]].pt < spt_max) and (muons[muons_select[0]].pt >spt_min) and (electrons[electrons_select[0]].pt < lpt_max) and (electrons[electrons_select[0]].pt > lpt_min):
                     if (muons[muons_select[0]].eta > 1.47) and (electrons[electrons_select[0]].eta>1.47):
                         emu_pass_lleta_sleta += 1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lleta_sleta + =1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lleta_sleta +=1
                     if (muons[muons_select[0]].eta < 1.47) and (electrons[electrons_select[0]].eta > 1.47):
-                        emu_pass_lleta_sseta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lleta_sseta + = 1
+                        emu_pass_lleta_sseta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lleta_sseta += 1
                     if (muons[muons_select[0]].eta > 1.47) and (electrons[electrons_select[0]].eta < 1.47):
-                        emu_pass_lseta_sleta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lseta_sleta + = 1
+                        emu_pass_lseta_sleta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lseta_sleta += 1
                     if (muons[muons_select[0]].eta < 1.47) and (electrons[electrons_select[0]].eta < 1.47):
-                        emu_pass_lseta_sseta + =1
-                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
-                            emu_pass_hlt_lseta_sseta + = 1
+                        emu_pass_lseta_sseta +=1
+                        if (event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL):
+                            emu_pass_hlt_lseta_sseta += 1
 
         if len(muons_select) == 0 and len(electrons_select) == 2:
             if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
@@ -177,74 +181,74 @@ class WWG_HLT(Module):
                     if (electrons[electrons_select[0]].eta>1.47) and (electrons[electrons_select[1]].eta > 1.47):
                         ee_pass_lleta_sleta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lleta_sleta + = 1
+                            ee_pass_hlt_lleta_sleta += 1
                     if (electrons[electrons_select[0]].eta>1.47) and (electrons[electrons_select[1]].eta < 1.47):
                         ee_pass_lleta_sseta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lleta_sseta + = 1
+                            ee_pass_hlt_lleta_sseta += 1
                     if (electrons[electrons_select[0]].eta<1.47) and (electrons[electrons_select[1]].eta > 1.47):
                         ee_pass_lseta_sleta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lseta_sleta + = 1
+                            ee_pass_hlt_lseta_sleta += 1
                     if (electrons[electrons_select[0]].eta<1.47) and (electrons[electrons_select[1]].eta < 1.47):
                         ee_pass_lseta_sseta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lseta_sseta + = 1
+                            ee_pass_hlt_lseta_sseta += 1
             else:
                 if (electrons[electrons_select[0]].pt < spt_max) and (electrons[electrons_select[0]].pt > spt_min) and (electrons[electrons_select[1]].pt < lpt_max) and (electrons[electrons_select[1]].pt > lpt_min):
                     if (electrons[electrons_select[0]].eta > 1.47) and (electrons[electrons_select[1]].eta > 1.47):
                         ee_pass_lleta_sleta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lleta_sleta + = 1
+                            ee_pass_hlt_lleta_sleta += 1
                     if (electrons[electrons_select[0]].eta < 1.47) and (electrons[electrons_select[1]].eta > 1.47):
                         ee_pass_lleta_sseta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lleta_sseta + = 1
+                            ee_pass_hlt_lleta_sseta += 1
                     if (electrons[electrons_select[0]].eta > 1.47) and (electrons[electrons_select[1]].eta < 1.47):
                         ee_pass_lseta_sleta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lseta_sleta + = 1
+                            ee_pass_hlt_lseta_sleta += 1
                     if (electrons[electrons_select[0]].eta < 1.47) and (electrons[electrons_select[1]].eta < 1.47):
                         ee_pass_lseta_sseta += 1
                         if (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL):
-                            ee_pass_hlt_lseta_sseta + = 1
+                            ee_pass_hlt_lseta_sseta += 1
         if len(muons_select) == 2 and len(electrons_select) == 0:
             if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
                 if (muons[muons_select[0]].pt<lpt_max) and (muons[muons_select[0]].pt>lpt_min)and (muons[muons_select[1]].pt < spt_max) and (muons[muons_select[1]].pt >spt_min):
                     if (muons[muons_select[0]].eta>1.47) and (muons[muons_select[1]].eta>1.47):
                         mumu_pass_lleta_sleta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lleta_sleta + = 1
+                            mumu_pass_hlt_lleta_sleta += 1
                     if (muons[muons_select[0]].eta>1.47) and (muons[muons_select[1]].eta<1.47):
                         mumu_pass_lleta_sseta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lleta_sseta + = 1
+                            mumu_pass_hlt_lleta_sseta += 1
                     if (muons[muons_select[0]].eta<1.47) and (muons[muons_select[1]].eta>1.47):
                         mumu_pass_lseta_sleta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lseta_sleta + = 1
+                            mumu_pass_hlt_lseta_sleta += 1
                     if (muons[muons_select[0]].eta<1.47) and (muons[muons_select[1]].eta<1.47):
                         mumu_pass_lseta_sseta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lseta_sseta + = 1
+                            mumu_pass_hlt_lseta_sseta += 1
             else:
                 if (muons[muons_select[0]].pt<spt_max) and (muons[muons_select[0]].pt>spt_min)and (muons[muons_select[1]].pt < lpt_max) and (muons[muons_select[1]].pt >lpt_min):
                     if (muons[muons_select[0]].eta>1.47) and (muons[muons_select[1]].eta>1.47):
                         mumu_pass_lleta_sleta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lleta_sleta + = 1
+                            mumu_pass_hlt_lleta_sleta += 1
                     if (muons[muons_select[0]].eta<1.47) and (muons[muons_select[1]].eta>1.47):
                         mumu_pass_lleta_sseta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lleta_sseta + = 1
+                            mumu_pass_hlt_lleta_sseta += 1
                     if (muons[muons_select[0]].eta>1.47) and (muons[muons_select[1]].eta<1.47):
                         mumu_pass_lseta_sleta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lseta_sleta + = 1
+                            mumu_pass_hlt_lseta_sleta += 1
                     if (muons[muons_select[0]].eta<1.47) and (muons[muons_select[1]].eta<1.47):
                         mumu_pass_lseta_sseta += 1
                         if (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8):
-                            mumu_pass_hlt_lseta_sseta + = 1
+                            mumu_pass_hlt_lseta_sseta += 1
         return True
 
 
@@ -257,7 +261,7 @@ class WWG_HLT(Module):
     #else:
     #    n_minus +=1
 
-files = ['~/new/wwgamma_5f_NLO_com_1310185_101.root']
+files = ['~/new/15_4.root']
 for k in lead_pt_min:
     sublead_pt_min = []
     if k == 20:
@@ -314,18 +318,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
         if m == 15:
             spt_max = 20
@@ -352,18 +356,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
         if m == 20:
             spt_max = 25
@@ -389,18 +393,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
         if m == 25:
             spt_max = 30
@@ -426,18 +430,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
         if m == 30:
             spt_max = 50
@@ -463,18 +467,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
         if m == 50:
             spt_max = float("inf")
@@ -500,18 +504,18 @@ for k in lead_pt_min:
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_emu_ll)
-                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + eff_emu_ls)
-                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + eff_emu_sl)
-                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + eff_emu_ss)
-                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + eff_ee_ll)
-                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" + eff_ee_ls)
-                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + eff_ee_sl)
-                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + eff_ee_ss)
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+eff_mumu_ll)
-                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + eff_mumu_ls)
-                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + eff_mumu_sl)
-                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + eff_mumu_ss)
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
+                f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
+                f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl))
+                f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss))
+                f.write("ee_ll:" + "\t" + str(ee_pass_lleta_sleta) + "\t" + "ee_hlt_ll:" + str(ee_pass_hlt_lleta_sleta) + "\t" + "eff_ee_ll:" + "\t" + str(eff_ee_ll))
+                f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls))
+                f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl))
+                f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss))
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
+                f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls))
+                f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl))
+                f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss))
             f.close()
 
 
