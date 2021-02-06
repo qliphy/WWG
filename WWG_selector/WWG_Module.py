@@ -409,7 +409,7 @@ class WWG_Producer(Module):
         #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
         #self.out.fillBranch("Njets",njets)
         if channel == 1:
-            pirnt("dilepton_mass_emu", dileptonmass_emu)
+            print("dilepton_mass_emu", dileptonmass_emu)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -434,7 +434,7 @@ class WWG_Producer(Module):
 
         elif channel == 2:
             #self.out.fillBranch("Njets",njets)
-            pirnt ("dilepton_mass_ee",dileptonmass_ee)
+            print("dilepton_mass_ee",dileptonmass_ee)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -459,7 +459,7 @@ class WWG_Producer(Module):
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("Njets",njets)
-            pirnt("dilepton_mass_mumu", dileptonmass_mumu)
+            print("dilepton_mass_mumu", dileptonmass_mumu)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
