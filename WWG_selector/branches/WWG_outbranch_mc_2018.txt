@@ -7,9 +7,9 @@ keep MET*
 keep event
 keep dilepton*
 keep *weight*
-keep wplus*
-keep wminus*
 keep Njets*
 keep lepton*
-keep *
+keep di*
+keep ele*
+keep lep*
 # keep max*
