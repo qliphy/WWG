@@ -316,7 +316,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
@@ -354,7 +354,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
@@ -391,7 +391,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
@@ -428,7 +428,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
@@ -465,7 +465,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
@@ -502,7 +502,7 @@ for k in lead_pt_min:
             eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
-                f.write("l means eta > 1.47 and s means eta < 1.47")
+                f.write("l means eta > 1.47 and s means eta < 1.47 \n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
                 f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls))
