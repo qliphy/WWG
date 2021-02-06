@@ -1,7 +1,11 @@
 # WWG Analysis
 Based on NanoAOD Tools: <https://github.com/cms-nanoAOD/nanoAOD-tools>
 
-Dedicated for WWG analysis on cms-connect environment
+Dedicated for WWG analysis on lxplus or cms-connect environment
+
+Introduction slides:
+<br>
+<https://docs.google.com/presentation/d/1Td-nFotttG4cUfyNEeJJGHtRFbVfc7ZF6uo8iMnB8z0/edit?usp=sharing>
 
 --------------
 ## content
@@ -46,7 +50,7 @@ condor_submit submit_*.jdl
 
 
 ## <span id="Baseline-selection"> Local mode </span>
-In WWG_seletor, `WWG_Module.py` is designed for basic selection (e.g. pt cut). Use `WWG_postproc.py` to test.
+In WWG_seletor, `WWG_Module.py` is designed for selections. Use `WWG_postproc.py` to test.
 
 ```bash
 python WWG_postproc.py -f *.root -k MC -y 2018
