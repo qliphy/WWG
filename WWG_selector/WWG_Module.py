@@ -152,7 +152,7 @@ class WWG_Producer(Module):
     #else:
     #    n_minus +=1
 
-        if  event.MET_pt>20:
+        if  event.PuppiMET_pt>20:
             MET_pass += 1
         else:
             return False  
@@ -228,7 +228,7 @@ class WWG_Producer(Module):
             #if jets[i].btagDeepB > 0.2219:  # DeepCSVL
             if jets[i].btagDeepB > 0.4184:  # DeepCSVM
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVL
-                #btag_cut = True      #initialize
+                btag_cut = True      #initialize
             if abs(jets[i].eta) > 4.7:
                 continue
             if jets[i].pt<30:
@@ -319,7 +319,7 @@ class WWG_Producer(Module):
             dileptonmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
             dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
             dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
-            met_emu = event.MET_pt
+            met_emu = event.PuppiMET_pt
             if dileptonmass_emu >= 50 and dileptonmass_emu <= 100 :
                 mll_reject +=1
                 return False
@@ -349,7 +349,7 @@ class WWG_Producer(Module):
             dileptonmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
             dileptongmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
             dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
-            met_ee = event.MET_pt
+            met_ee = event.PuppiMET_pt
             if dileptonmass_ee >= 50 and dileptonmass_ee <= 100 :
                 mll_reject +=1
                 return False
@@ -376,7 +376,7 @@ class WWG_Producer(Module):
                 return False
             dileptonmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).M()
             dileptongmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
-            met_mumu = event.MET_pt
+            met_mumu = event.PuppiMET_pt
             dileptonpt_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
                 # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
             if dileptonmass_mumu >= 50 and dileptonmass_mumu <= 100 :
@@ -402,7 +402,7 @@ class WWG_Producer(Module):
 
 
 
-        #self.out.fillBranch("MET",event.MET_pt)
+        #self.out.fillBranch("MET",event.PuppiMET_pt)
         #self.out.fillBranch("photon_pt",photons[photons_select[0]].pt)
         #self.out.fillBranch("photon_eta",photons[photons_select[0]].eta)
         #self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
