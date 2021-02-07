@@ -261,7 +261,7 @@ class WWG_HLT(Module):
     #else:
     #    n_minus +=1
 
-files = ['~/new/15_4.root']
+files = ['/local-scratch/zguan/data2018A/EG.root']
 for k in lead_pt_min:
     sublead_pt_min = []
     if k == 20:
@@ -302,18 +302,18 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
@@ -340,19 +340,20 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
-            print "eff_ee_ll",eff_ee_ll
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+
+	    print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
@@ -364,7 +365,7 @@ for k in lead_pt_min:
                 f.write("ee_ls:" + "\t" + str(ee_pass_lleta_sseta) + "\t" + "ee_hlt_ls:" + str(ee_pass_hlt_lleta_sseta) + "\t" + "eff_ee_ls:" + "\t" +str(eff_ee_ls)+"\n")
                 f.write("ee_sl:" + "\t" + str(ee_pass_lseta_sleta) + "\t" + "ee_hlt_sl:" + str(ee_pass_hlt_lseta_sleta) + "\t" + "eff_ee_sl:" + "\t" + str(eff_ee_sl)+"\n")
                 f.write("ee_ss:" + "\t" + str(ee_pass_lseta_sseta) + "\t" + "ee_hlt_ss:" + str(ee_pass_hlt_lseta_sseta) + "\t" + "eff_ee_ss:" + "\t" + str(eff_ee_ss)+"\n")
-                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll)+"\n")
+                f.write("mumu_ll:"+"\t"+str(mumu_pass_lleta_sleta)+"\t"+"mumu_hlt_ll:"+str(mumu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_mumu_ll))
                 f.write("mumu_ls:" + "\t" + str(mumu_pass_lleta_sseta) + "\t" + "mumu_hlt_ls:" + str(mumu_pass_hlt_lleta_sseta) + "\t" + "eff_mumu_ls:" + "\t" + str(eff_mumu_ls)+"\n")
                 f.write("mumu_sl:" + "\t" + str(mumu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(mumu_pass_hlt_lseta_sleta) + "\t" + "eff_mumu_sl:" + "\t" + str(eff_mumu_sl)+"\n")
                 f.write("mumu_ss:" + "\t" + str(mumu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(mumu_pass_hlt_lseta_sseta) + "\t" + "eff_mumu_ss:" + "\t" + str(eff_mumu_ss)+"\n")
@@ -377,23 +378,24 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
                 f.write("lptmax"+"\t"+str(lpt_max)+"\t"+ "lptmin"+"\t"+str(lpt_min)+"\t"+"sptmax"+"\t"+ str(spt_max)+"\t"+"sptmin"+"\t"+str(spt_min)+"\t"+":" +"\n")
-                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll)+"\n")
+                f.write("emu_ll:"+"\t"+str(emu_pass_lleta_sleta)+"\t"+"emu_hlt_ll:"+str(emu_pass_hlt_lleta_sleta)+"\t"+"eff_emu_ll:"+"\t"+str(eff_emu_ll))
                 f.write("emu_ls:" + "\t" + str(emu_pass_lleta_sseta) + "\t" + "emu_hlt_ls:" + str(emu_pass_hlt_lleta_sseta) + "\t" + "eff_emu_ls:" + "\t" + str(eff_emu_ls)+"\n")
                 f.write("emu_sl:" + "\t" + str(emu_pass_lseta_sleta) + "\t" + "emu_hlt_sl:" + str(emu_pass_hlt_lseta_sleta) + "\t" + "eff_emu_sl:" + "\t" + str(eff_emu_sl)+"\n")
                 f.write("emu_ss:" + "\t" + str(emu_pass_lseta_sseta) + "\t" + "emu_hlt_ll:" + str(emu_pass_hlt_lseta_sseta) + "\t" + "eff_emu_ss:" + "\t" + str(eff_emu_ss)+"\n")
@@ -414,18 +416,19 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
@@ -451,18 +454,19 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47\n")
@@ -488,18 +492,19 @@ for k in lead_pt_min:
             p.run()
             print "example:ee_pass_lleta_sleta",ee_pass_lleta_sleta,"ee_pass_hlt_lleta_sleta",ee_pass_hlt_lleta_sleta
             print "please check the value"
-            eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
-            eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
-            eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
-            eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
-            eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
-            eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
-            eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
-            eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
-            eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
-            eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
-            eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
-            eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+            if ee_pass_lleta_sleta !=0:eff_ee_ll=float(ee_pass_hlt_lleta_sleta)/float(ee_pass_lleta_sleta)
+            if ee_pass_lleta_sseta !=0:eff_ee_ls = float(ee_pass_hlt_lleta_sseta) / float(ee_pass_lleta_sseta)
+            if ee_pass_lseta_sleta !=0: eff_ee_sl = float(ee_pass_hlt_lseta_sleta) / float(ee_pass_lseta_sleta)
+            if ee_pass_lseta_sseta !=0:eff_ee_ss = float(ee_pass_hlt_lseta_sseta) / float(ee_pass_lseta_sseta)
+            if emu_pass_lleta_sleta !=0: eff_emu_ll = float(emu_pass_hlt_lleta_sleta) / float(emu_pass_lleta_sleta)
+            if emu_pass_lleta_sseta !=0: eff_emu_ls = float(emu_pass_hlt_lleta_sseta) / float(emu_pass_lleta_sseta)
+            if emu_pass_lseta_sleta !=0:eff_emu_sl = float(emu_pass_hlt_lseta_sleta) / float(emu_pass_lseta_sleta)
+            if emu_pass_lseta_sseta !=0 :eff_emu_ss = float(emu_pass_hlt_lseta_sseta) / float(emu_pass_lseta_sseta)
+            if mumu_pass_lleta_sleta !=0 :eff_mumu_ll = float(mumu_pass_hlt_lleta_sleta) / float(mumu_pass_lleta_sleta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_ls = float(mumu_pass_hlt_lleta_sseta) / float(mumu_pass_lleta_sseta)
+            if mumu_pass_lleta_sseta !=0:eff_mumu_sl = float(mumu_pass_hlt_lseta_sleta) / float(mumu_pass_lseta_sleta)
+            if mumu_pass_lseta_sseta !=0:eff_mumu_ss = float(mumu_pass_hlt_lseta_sseta) / float(mumu_pass_lseta_sseta)
+
             print "eff_ee_ll",eff_ee_ll
             with open("WWA_HLT"+"lptmax_"+str(lpt_max)+"_"+"lptmin_"+str(lpt_min)+"_"+"sptmax"+"_"+ str(spt_max)+"_"+"sptmin"+"_"+str(spt_min)+".log", "w+") as f:
                 f.write("l means eta > 1.47 and s means eta < 1.47 \n")
