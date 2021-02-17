@@ -208,8 +208,8 @@ class WWG_Producer(Module):
                     pass_lepton_dr_cut = False
             if not pass_lepton_dr_cut:
                 continue
-            if photons[i].cutBasedBitmap >=1: #1==medium
-            #if photons[i].cutBased >=2:
+            #if photons[i].cutBasedBitmap >=1: #1==medium
+            if photons[i].cutBased >=2:
                 photons_select.append(i)
                 photon_pass += 1
 
@@ -326,7 +326,7 @@ class WWG_Producer(Module):
             if dileptonpt_emu <= 40:
                 pt_reject +=1
                 return False
-            if met_emu <60:
+            if met_emu <40:
                 return False
                 # if dileptonmass >= 60 and dileptonmass <= 120:
                 # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
