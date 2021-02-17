@@ -1,6 +1,7 @@
 l means eta > 1.47 and s means eta < 1.47
 lptmax	25	lptmin	20	sptmax	25	sptmin	20.0	:
-emu_ll:	150	emu_hlt_ll:32	eff_emu_ll:	0.213333333333emu_ls:	254	emu_hlt_ls:81	eff_emu_ls:	0.318897637795
+emu_ll:	150	emu_hlt_ll:32	eff_emu_ll:	0.213333333333
+emu_ls:	254	emu_hlt_ls:81	eff_emu_ls:	0.318897637795
 emu_sl:	428	emu_hlt_sl:120	eff_emu_sl:	0.280373831776
 emu_ss:	2150	emu_hlt_ll:653	eff_emu_ss:	0.303720930233
 ee_ll:	70	ee_hlt_ll:17	eff_ee_ll:	0.242857142857
