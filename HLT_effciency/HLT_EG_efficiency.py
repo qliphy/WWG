@@ -125,7 +125,8 @@ class WWG_HLT(Module):
         electrons_select = []
         muons_select = []
         leptons_select = []
-
+        if event.HLT_CaloMET80_NotCleaned == False:
+            return False
         for i in range(0,len(muons)):
             if muons[i].mediumId == True:
                 muons_select.append(i)
