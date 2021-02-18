@@ -141,7 +141,27 @@ class WWG_Producer(Module):
         global n_minus 
         # selection on MET. Pass to next event directly if fail.
         global n_num
+        dileptonmass = -99
+        dileptongmass=-99
+        dileptonpt=-99
+        njets=-99
+        njets_ee = -99
+        njets_emu = -99
+        njets_mumu = -99
+        dileptonmass_emu=-99
+        dileptonpt_emu=-99
+        met_emu=-99
+        dileptonmass_ee=-99
+        dileptonpt_ee=-99
+        met_ee=-99
+        dileptonmass_mumu=-99
+        dileptonpt_mumu=-99
+        met_mumu=-99
         n_num +=1
+        #if event.Generator_weight > 0 :
+        #    n_posi +=1
+        #else:
+        #    n_minus +=1
         if hasattr(event, 'nGenPart'):
             if event.Generator_weight > 0 :
                 n_posi +=1
@@ -153,7 +173,7 @@ class WWG_Producer(Module):
     #else:
     #    n_minus +=1
 
-        if  event.PuppiMET_pt>20:
+        if  event.MET_pt>20:
             MET_pass += 1
         else:
             return False  
@@ -209,8 +229,8 @@ class WWG_Producer(Module):
                     pass_lepton_dr_cut = False
             if not pass_lepton_dr_cut:
                 continue
-            #if photons[i].cutBasedBitmap >=1: #1==medium
-            if photons[i].cutBased >=2:
+            if photons[i].cutBasedBitmap >=1: #1==medium
+            #if photons[i].cutBased >=2:
                 photons_select.append(i)
                 photon_pass += 1
 
@@ -218,8 +238,9 @@ class WWG_Producer(Module):
             none_photon_reject +=1 
             return False                        #reject event if there is not exact one photon in the event 
 
+
         njets = 0
-        #print len(jets)
+        print len(jets)
         for i in range(0,len(jets)):
             btag_cut = False
             #if jets[i].btagCMVA > -0.5884:  # cMVAv2L
@@ -227,9 +248,9 @@ class WWG_Producer(Module):
             # if jets[i].btagCSVV2 > 0.5426:  # CSVv2L
             # if jets[i].btagCSVV2 > 0.8484:  # CSVv2M
             #if jets[i].btagDeepB > 0.2219:  # DeepCSVL
-            if jets[i].btagDeepB > 0.4184:  # DeepCSVM
+            #if jets[i].btagDeepB > 0.4184:  # DeepCSVM
             # if jets[i].btagDeepB > 0.6324:  # DeepCSVL
-                btag_cut = True      #initialize
+                #btag_cut = True      #initialize
             if abs(jets[i].eta) > 4.7:
                 continue
             if jets[i].pt<30:
@@ -292,16 +313,7 @@ class WWG_Producer(Module):
                             is_real_flag =1
                             break
             if is_real_flag == 1: photons_is_real=1
-        #initial value
-        dileptonmass_emu = -99
-        dileptonpt_emu = -99
-        met_emu = -99
-        dileptonmass_ee = -99
-        dileptonpt_ee = -99
-        met_ee = -99
-        dileptonmass_mumu = -99
-        dileptonpt_mumu = -99
-        met_mumu = -99
+
         #dilepton mass selection and channel selection
         channel = 0 
         # emu:     1
@@ -309,29 +321,36 @@ class WWG_Producer(Module):
         # mumu:    3
 
         # emu
+        dileptonmass = -1.0
         if len(muons_select)==1 and len(electrons_select)==1:  # emu channel 
             #print (muons[muons_select[0]].pdgId,electrons[electrons_select[0]].pdgId)
             if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,electrons[electrons_select[0]].eta,electrons[electrons_select[0]].phi) < 0.5:
                 deltar_reject +=1
                 return False
-            if muons[muons_select[0]].charge * (electrons[electrons_select[0]].charge) > 0:
-                different_charge_reject += 1
-                return False
-            dileptonmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
-            dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
-            dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
-            met_emu = event.PuppiMET_pt
-            if dileptonmass_emu >= 50 and dileptonmass_emu <= 100 :
-                mll_reject +=1
-                return False
-            if dileptonpt_emu <= 40:
-                pt_reject +=1
-                return False
-            if met_emu <40:
-                return False
+            
+            if muons[muons_select[0]].charge * (electrons[electrons_select[0]].charge) < 0:
+                dileptonmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
+                #dileptongmass = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
+                dileptonpt = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
+                dileptonmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).M()
+                dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
+                dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
+                met_emu = event.MET_pt
+                if dileptonmass >= 50 and dileptonmass <= 100 :
+                    mll_reject +=1
+                    return False
+                if dileptonpt <= 40:
+                    pt_reject +=1
+                    return False
+                if met_emu <40:
+                    return False
+
                 # if dileptonmass >= 60 and dileptonmass <= 120:
                 # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
-            if dileptonmass_emu > 0:
+            else:
+                different_charge_reject +=1
+                return False
+            if dileptonmass > 0: 
                 channel = 1
                 emu_pass += 1
             else :
@@ -343,23 +362,28 @@ class WWG_Producer(Module):
             if deltaR(electrons[electrons_select[0]].eta,electrons[electrons_select[0]].phi,electrons[electrons_select[1]].eta,electrons[electrons_select[1]].phi)<0.5:
                 deltar_reject +=1
                 return False
-            if electrons[electrons_select[0]].charge * electrons[electrons_select[1]].charge >0:
-                different_charge_reject += 1
+             
+            if electrons[electrons_select[0]].charge * electrons[electrons_select[1]].charge <0:
+                dileptonmass = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
+                dileptongmass = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
+                dileptonpt = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
+                dileptonmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
+                dileptongmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
+                dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
+                
+                met_ee = event.MET_pt
+                if dileptonmass >= 50 and dileptonmass <= 100 :
+                    mll_reject +=1
+                    return False
+                if dileptonpt <= 40: 
+                    pt_reject +=1
+                    return False
+                if met_ee <60:
+                    return False
+            else:
+                different_charge_reject +=1
                 return False
-
-            dileptonmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).M()
-            dileptongmass_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()+photons[photons_select[0]].p4()).M()
-            dileptonpt_ee = (electrons[electrons_select[0]].p4() + electrons[electrons_select[1]].p4()).Pt()
-            met_ee = event.PuppiMET_pt
-            if dileptonmass_ee >= 50 and dileptonmass_ee <= 100 :
-                mll_reject +=1
-                return False
-            if dileptonpt_ee <= 40:
-                pt_reject +=1
-                return False
-            if met_ee <60:
-                return False
-            if dileptonmass_ee > 0:
+            if dileptonmass > 0:
                 channel = 2
                 ee_pass += 1
             else:
@@ -372,30 +396,34 @@ class WWG_Producer(Module):
             if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,muons[muons_select[1]].eta,muons[muons_select[1]].phi)<0.5:
                 deltar_reject +=1
                 return False
-            if muons[muons_select[0]].charge * muons[muons_select[1]].charge >0:
+            if muons[muons_select[0]].charge * muons[muons_select[1]].charge < 0:
+                dileptonmass = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).M()
+                dileptongmass = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
+                dileptonpt = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
+                dileptonmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).M()
+                dileptongmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
+                met_mumu = event.MET_pt
+                dileptonpt_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
+                if dileptonmass >= 50 and dileptonmass <= 100 :
+                    mll_reject +=1
+                    return False
+                if dileptonpt <= 40: 
+                    pt_reject +=1
+                    return False
+                if met_mumu <60:
+                    return False
+                # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
+            else:
                 different_charge_reject +=1
                 return False
-            dileptonmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).M()
-            dileptongmass_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()+photons[photons_select[0]].p4()).M()
-            met_mumu = event.PuppiMET_pt
-            dileptonpt_mumu = (muons[muons_select[0]].p4() + muons[muons_select[1]].p4()).Pt()
-                # print "a=",photons_select, "e=",electrons_select, "mu=",muons_select
-            if dileptonmass_mumu >= 50 and dileptonmass_mumu <= 100 :
-                mll_reject +=1
-                return False
-            if dileptonpt_mumu <= 40:
-                pt_reject +=1
-                return False
-            if met_mumu <60:
-                return False
-            if dileptonmass_mumu > 0:
+            if dileptonmass > 0: 
                 channel = 3
                 mumu_pass += 1
             else :
                 minus_mll +=1
                 return False
 
- #    check channel to fill branch
+ #    test 
         if channel == 0:
             print len(electrons_select),len(muons_select)
             return False
@@ -403,14 +431,13 @@ class WWG_Producer(Module):
 
 
 
-        #self.out.fillBranch("MET",event.PuppiMET_pt)
+        #self.out.fillBranch("MET",event.MET_pt)
         #self.out.fillBranch("photon_pt",photons[photons_select[0]].pt)
         #self.out.fillBranch("photon_eta",photons[photons_select[0]].eta)
         #self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
         #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
         #self.out.fillBranch("Njets",njets)
         if channel == 1:
-            print("dilepton_mass_emu", dileptonmass_emu)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -429,13 +456,11 @@ class WWG_Producer(Module):
             else:
                 self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
-            self.out.fillBranch("channel_mark", channel)
-            return True
+
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
         elif channel == 2:
             #self.out.fillBranch("Njets",njets)
-            print("dilepton_mass_ee",dileptonmass_ee)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -454,13 +479,11 @@ class WWG_Producer(Module):
             else:
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
-            self.out.fillBranch("channel_mark", channel)
-            return True
+
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("Njets",njets)
-            print("dilepton_mass_mumu", dileptonmass_mumu)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -479,17 +502,15 @@ class WWG_Producer(Module):
             else:
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
-            self.out.fillBranch("channel_mark", channel)
-            return True
+
 
         #self.out.fillBranch("event",event.event)
         #self.out.fillBranch("dilepton_mass",dileptonmass)
         #self.out.fillBranch("dilepton_g_mass",dileptongmass)
         #self.out.fillBranch("dilepton_pt",dileptonpt)
         #self.out.fillBranch("Generator_weight",event.Generator_weight)
-        else:
-            print "Unkown channel",channel
-            return False
+        self.out.fillBranch("channel_mark",channel)
+        return True
 
 
 print "MET_pass","\t","=","\t",MET_pass
