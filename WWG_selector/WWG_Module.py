@@ -142,10 +142,11 @@ class WWG_Producer(Module):
         # selection on MET. Pass to next event directly if fail.
         global n_num
         n_num +=1
-        #if event.Generator_weight > 0 :
-        #    n_posi +=1
-        #else:
-        #    n_minus +=1
+        if hasattr(event, 'nGenPart'):
+            if event.Generator_weight > 0 :
+                n_posi +=1
+            else:
+                n_minus +=1
 
     #if event.Generator_weight > 0 :
     #    n_posi +=1
