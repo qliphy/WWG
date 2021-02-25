@@ -172,11 +172,13 @@ class WWG_Producer(Module):
     #    n_posi +=1
     #else:
     #    n_minus +=1
+        if not ((event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8)):
+            return False
 
         if  event.MET_pt>20:
             MET_pass += 1
         else:
-            return False  
+            return False
 
         #selection on muons
         for i in range(0,len(muons)):
