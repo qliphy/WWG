@@ -13,6 +13,7 @@ from PhysicsTools.NanoAODTools.postprocessing.tools import deltaR
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.countHistogramsModule import countHistogramsProducer
+
 Np=0
 Nm=0
 test=0
@@ -37,6 +38,7 @@ n_posi=0
 n_minus=0
 njet_reject = 0
 n_num = 0
+
 class WWG_Producer(Module):
     def __init__(self):
         pass
@@ -141,6 +143,7 @@ class WWG_Producer(Module):
         global n_minus 
         # selection on MET. Pass to next event directly if fail.
         global n_num
+
         dileptonmass = -99
         dileptongmass=-99
         dileptonpt=-99
@@ -158,6 +161,7 @@ class WWG_Producer(Module):
         dileptonpt_mumu=-99
         met_mumu=-99
         n_num +=1
+
         #if event.Generator_weight > 0 :
         #    n_posi +=1
         #else:
@@ -172,6 +176,7 @@ class WWG_Producer(Module):
     #    n_posi +=1
     #else:
     #    n_minus +=1
+
         if not ((event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TackIdL_IsoVL) or (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8)):
             return False
 
@@ -338,9 +343,9 @@ class WWG_Producer(Module):
                 dileptongmass_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()+photons[photons_select[0]].p4()).M()
                 dileptonpt_emu = (muons[muons_select[0]].p4() + electrons[electrons_select[0]].p4()).Pt()
                 met_emu = event.MET_pt
-                if dileptonmass >= 50 and dileptonmass <= 100 :
-                    mll_reject +=1
-                    return False
+                #if dileptonmass >= 50 and dileptonmass <= 100 :
+                #    mll_reject +=1
+                #    return False
                 if dileptonpt <= 40:
                     pt_reject +=1
                     return False
