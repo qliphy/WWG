@@ -198,7 +198,6 @@ class WWG_Producer(Module):
                 muon_pass += 1
                 leptons_select.append(i)
 
-
         # selection on electrons
         for i in range(0,len(electrons)):
             if electrons[i].pt < 20:
