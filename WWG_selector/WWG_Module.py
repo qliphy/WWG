@@ -576,8 +576,6 @@ class WWG_Producer(Module):
         #self.out.fillBranch("dilepton_g_mass",dileptongmass)
         #self.out.fillBranch("dilepton_pt",dileptonpt)
         #self.out.fillBranch("Generator_weight",event.Generator_weight)
-        self.out.fillBranch("channel_mark",channel)
-        return True
 
 
 print "MET_pass","\t","=","\t",MET_pass
