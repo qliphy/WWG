@@ -39,6 +39,8 @@ n_minus=0
 njet_reject = 0
 n_num = 0
 
+
+
 class WWG_Producer(Module):
     def __init__(self):
         pass
@@ -95,10 +97,25 @@ class WWG_Producer(Module):
         self.out.branch("electrons_is_real", "I")
         self.out.branch("muons_is_real", "I")
         self.out.branch("photons_is_real", "I")
+        self.out.branch("leoton1_is_real_nano", "I")
+        self.out.branch("lepton2_is_real_nano", "I")
+        self.out.branch("photons_is_real_nano", "I")
+        self.out.branch("n_posi", "I")
+        self.out.branch("n_minus", "I")
+        self.out.branch("n_num", "I")
+        self.out.branch("emu_pass", "I")
+        self.out.branch("ee_pass", "I")
+        self.out.branch("mumu_pass", "I")
 
         self.out.branch("channel_mark","i")
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
+        self.out.fillBranch("n_posi", n_posi)
+        self.out.fillBranch("n_minus", n_minus)
+        self.out.fillBranch("n_num", n_num)
+        self.out.fillBranch("emu_pass", emu_pass)
+        self.out.fillBranch("ee_pass", ee_pass)
+        self.out.fillBranch("mumu_pass", mumu_pass)
         pass
 
     def analyze(self, event):
@@ -118,7 +135,7 @@ class WWG_Producer(Module):
         if hasattr(event,'nGenPart'):
             genparts = Collection(event, "GenPart")
 
-	# Record the pass numbers for each cut. Noticed that for efficiency, those who can't pass the MET cut may not be counted because it will pass to next event directly.
+    # Record the pass numbers for each cut. Noticed that for efficiency, those who can't pass the MET cut may not be counted because it will pass to next event directly.
         
         global MET_pass
         global photon_pass
@@ -290,11 +307,18 @@ class WWG_Producer(Module):
         electrons_is_real=-99
         photons_is_real=-99
         muons_is_real = -99
+        leoton1_is_real_nano=-99
+        leoton2_is_real_nano=-99
+        photons_is_real_nano = -99
+
         leptons_is_real=-99
 
         isprompt_mask = (1 << 0) #isPrompt
         isdirectprompttaudecayproduct_mask = (1 << 5) #isDirectPromptTauDecayProduct
+        isdirecttaudecayproduct_mask = (1 << 4) #isDirectTauDecayProduct
+        isprompttaudecayproduct = (1 << 3) #isPromptTauDecayProduct
         isfromhardprocess_mask = (1 << 8) #isPrompt
+
 
         if hasattr(event, 'nGenPart'):
             genparts = Collection(event, "GenPart")
@@ -303,7 +327,7 @@ class WWG_Producer(Module):
             for i,lep in enumerate(electrons_select):
                 for j,genpart in enumerate(genparts):
                     if electrons[electrons_select[i]].genPartIdx >=0:
-                        if genpart.pt>5 and abs(genpart.pdgId)==11 and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3 and ((genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask)):
+                        if genpart.pt>5 and abs(genpart.pdgId)==11 and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3 and ((genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isprompttaudecayproduct == isprompttaudecayproduct)):
                             if i <1 : is_real_flag=1
                             if i >=1 : is_real_flag_1 =1
                             break
@@ -319,7 +343,7 @@ class WWG_Producer(Module):
             for i, mu in enumerate(muons_select):
                 for j, genpart in enumerate(genparts):
                     if muons[muons_select[i]].genPartIdx >=0:
-                        if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3 and ((genparts[muons[muons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[muons[muons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask)):
+                        if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3 and ((genparts[muons[muons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[muons[muons_select[i]].genPartIdx].statusFlags & isprompttaudecayproduct == isprompttaudecayproduct)):
                             if i < 1: is_real_flag = 1
                             if i >= 1: is_real_flag_1 = 1
                             break
@@ -348,6 +372,7 @@ class WWG_Producer(Module):
         dileptonmass = -1.0
         if len(muons_select)==1 and len(electrons_select)==1:  # emu channel 
             #print (muons[muons_select[0]].pdgId,electrons[electrons_select[0]].pdgId)
+
             if deltaR(muons[muons_select[0]].eta,muons[muons_select[0]].phi,electrons[electrons_select[0]].eta,electrons[electrons_select[0]].phi) < 0.5:
                 deltar_reject +=1
                 return False
@@ -477,9 +502,13 @@ class WWG_Producer(Module):
             if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
                 self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_emu",electrons[electrons_select[0]].pt)
+                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[0]].Muon_genPartFlav)
+                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[0]].Electron_genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
+                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[0]].Muon_genPartFlav)
+                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[0]].Electron_genPartFlav)
 
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
@@ -500,9 +529,13 @@ class WWG_Producer(Module):
             if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[1]].pt)
+                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[0]].Electron_genPartFlav)
+                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[1]].Electron_genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
+                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[0]].Electron_genPartFlav)
+                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[1]].Electron_genPartFlav)
 
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
@@ -523,9 +556,13 @@ class WWG_Producer(Module):
             if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[1]].pt)
+                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[0]].Muon_genPartFlav)
+                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[1]].Muon_genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
+                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[0]].Muon_genPartFlav)
+                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[1]].Muon_genPartFlav)
 
 
         #self.out.fillBranch("event",event.event)
