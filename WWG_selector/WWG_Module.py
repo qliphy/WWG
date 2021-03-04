@@ -510,7 +510,8 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-
+            self.out.fillBranch("channel_mark", channel)
+            return True
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
         elif channel == 2:
@@ -538,7 +539,8 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
-
+            self.out.fillBranch("channel_mark", channel)
+            return True
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
@@ -566,7 +568,8 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[1]].genPartFlav)
-
+            self.out.fillBranch("channel_mark", channel)
+            return True
 
         #self.out.fillBranch("event",event.event)
         #self.out.fillBranch("dilepton_mass",dileptonmass)
