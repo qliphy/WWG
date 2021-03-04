@@ -97,7 +97,7 @@ class WWG_Producer(Module):
         self.out.branch("electrons_is_real", "I")
         self.out.branch("muons_is_real", "I")
         self.out.branch("photons_is_real", "I")
-        self.out.branch("leoton1_is_real_nano", "I")
+        self.out.branch("lepton1_is_real_nano", "I")
         self.out.branch("lepton2_is_real_nano", "I")
         self.out.branch("photons_is_real_nano", "I")
         self.out.branch("n_posi", "I")
@@ -307,8 +307,8 @@ class WWG_Producer(Module):
         electrons_is_real=-99
         photons_is_real=-99
         muons_is_real = -99
-        leoton1_is_real_nano=-99
-        leoton2_is_real_nano=-99
+        lepton1_is_real_nano=-99
+        lepton2_is_real_nano=-99
         photons_is_real_nano = -99
 
         leptons_is_real=-99
@@ -502,13 +502,13 @@ class WWG_Producer(Module):
             if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
                 self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_emu",electrons[electrons_select[0]].pt)
-                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
-                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
 
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
@@ -529,13 +529,13 @@ class WWG_Producer(Module):
             if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[1]].pt)
-                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[1]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[1]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
-                self.out.fillBranch("leoton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
 
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
@@ -556,13 +556,13 @@ class WWG_Producer(Module):
             if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[1]].pt)
-                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[1]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[1]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
-                self.out.fillBranch("leoton2_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("leoton1_is_real_nano", muons[muons_select[1]].genPartFlav)
+                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
+                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[1]].genPartFlav)
 
 
         #self.out.fillBranch("event",event.event)
