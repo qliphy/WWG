@@ -498,17 +498,18 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_emu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_emu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_emu",photons[photons_select[0]].phi)
+            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
                 self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_emu",electrons[electrons_select[0]].pt)
-                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_emu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
-                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
 
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
@@ -525,17 +526,18 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_ee",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_ee",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_ee",photons[photons_select[0]].phi)
+            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[1]].pt)
-                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[1]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'): self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[1]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_ee",electrons[electrons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
-                self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
 
         elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
@@ -552,17 +554,18 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_mumu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_mumu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_mumu",photons[photons_select[0]].phi)
+            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[1]].pt)
-                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[1]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[1]].genPartFlav)
             else:
                 self.out.fillBranch("lepton2_pt_mumu",muons[muons_select[0]].pt)
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
-                self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
-                self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[1]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
+                if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[1]].genPartFlav)
 
 
         #self.out.fillBranch("event",event.event)
