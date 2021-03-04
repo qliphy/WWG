@@ -498,7 +498,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_emu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_emu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_emu",photons[photons_select[0]].phi)
-            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
+            if hasattr(event, 'nGenPart'):self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if muons[muons_select[0]].pt > electrons[electrons_select[0]].pt:
                 self.out.fillBranch("lepton1_pt_emu",muons[muons_select[0]].pt)
@@ -526,7 +526,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_ee",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_ee",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_ee",photons[photons_select[0]].phi)
-            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
+            if hasattr(event, 'nGenPart'):self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if electrons[electrons_select[0]].pt > electrons[electrons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[0]].pt)
@@ -554,7 +554,7 @@ class WWG_Producer(Module):
             self.out.fillBranch("photon_pt_mumu",photons[photons_select[0]].pt)
             self.out.fillBranch("photon_eta_mumu",photons[photons_select[0]].eta)
             self.out.fillBranch("photon_phi_mumu",photons[photons_select[0]].phi)
-            self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
+            if hasattr(event, 'nGenPart'):self.out.fillBranch("photons_is_real_nano", photons[photons_select[0]].genPartFlav)
             #lep1_pt lep2_pt
             if muons[muons_select[0]].pt > muons[muons_select[1]].pt:
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[0]].pt)
