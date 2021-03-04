@@ -302,7 +302,7 @@ class WWG_Producer(Module):
             is_real_flag_1 =0
             for i,lep in enumerate(electrons_select):
                 for j,genpart in enumerate(genparts):
-		            if electrons[electrons_select[i]].genPartIdx >=0:
+                    if electrons[electrons_select[i]].genPartIdx >=0:
                         if genpart.pt>5 and abs(genpart.pdgId)==11 and deltaR(electrons[electrons_select[i]].eta, electrons[electrons_select[i]].phi, genpart.eta, genpart.phi) < 0.3 and ((genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[electrons[electrons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask)):
                             if i <1 : is_real_flag=1
                             if i >=1 : is_real_flag_1 =1
@@ -318,7 +318,7 @@ class WWG_Producer(Module):
             is_real_flag_1 = 0
             for i, mu in enumerate(muons_select):
                 for j, genpart in enumerate(genparts):
-		            if muons[muons_select[i]].genPartIdx >=0:
+                    if muons[muons_select[i]].genPartIdx >=0:
                         if genpart.pt > 5 and abs(genpart.pdgId) == 13 and deltaR(muons[muons_select[i]].eta, muons[muons_select[i]].phi,genpart.eta,genpart.phi) < 0.3 and ((genparts[muons[muons_select[i]].genPartIdx].statusFlags & isprompt_mask == isprompt_mask) or (genparts[muons[muons_select[i]].genPartIdx].statusFlags & isdirectprompttaudecayproduct_mask == isdirectprompttaudecayproduct_mask)):
                             if i < 1: is_real_flag = 1
                             if i >= 1: is_real_flag_1 = 1
