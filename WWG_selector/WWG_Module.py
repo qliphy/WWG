@@ -399,11 +399,12 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass > 0: 
+            if dileptonmass >= 0:
                 channel = 1
                 emu_pass += 1
             else :
                 minus_mll +=1
+                channel = 0
                 return False
 
         # ee
@@ -432,11 +433,12 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass > 0:
+            if dileptonmass >= 0:
                 channel = 2
                 ee_pass += 1
             else:
                 minus_mll +=1
+                channel = 0
                 return False
 
 
@@ -465,7 +467,7 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass > 0: 
+            if dileptonmass >= 0:
                 channel = 3
                 mumu_pass += 1
             else :
@@ -486,7 +488,7 @@ class WWG_Producer(Module):
         #self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
         #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
         #self.out.fillBranch("Njets",njets)
-        if channel == 1:
+        if len(muons_select)==1 and len(electrons_select)==1:
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -514,7 +516,7 @@ class WWG_Producer(Module):
             return True
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
-        elif channel == 2:
+        elif len(muons_select)==0 and len(electrons_select)==2:
             #self.out.fillBranch("Njets",njets)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
@@ -541,7 +543,7 @@ class WWG_Producer(Module):
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
             self.out.fillBranch("channel_mark", channel)
             return True
-        elif channel == 3:
+        elif len(muons_select)==2 and len(electrons_select)==0:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("Njets",njets)
