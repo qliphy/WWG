@@ -26,6 +26,7 @@ mv python $CMSSW_BASE/python
 kind=""
 mode=""
 year=""
+which_data=""
 for i in "$@"
 do
   case $i in
@@ -43,11 +44,16 @@ do
       year="${i#*=}"
       ;;
   esac
+    case $i in
+      which_data=*)
+      which_data="${i#*=}"
+      ;;
+  esac
 done
 
 echo Found Proxy in: $X509_USER_PROXY
 #if [ $isdata == "1" ]; then
-python WWG_postproc.py -k $kind -m $mode -y $year
+python WWG_postproc.py -k $kind -m $mode -y $year -w $which_data
 #else
 #  if [ $iswwa == "1" ]; then
 #      python whjj_postproc.py -k $kind -m -y $year

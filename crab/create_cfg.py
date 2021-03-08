@@ -69,8 +69,8 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
     else:
         return
     
+    #site = "T2_CN_Beijing"
     site = "T3_CH_CERNBOX"
-    #site = "T2_CH_CERNBOX"
 
     print(f">>>>>>>>>>>>>>>>>>>> created directory for {year} : {cfg_dir}")
     print(">>>>>>>>>>>>>>>>>>>> the created configuration files:")
@@ -92,24 +92,36 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
         if 'data' in kind:
             dataset=_Samples[iSample]['nanoAOD']
             #script = f'crab_script_data_{year}.py'
-            split = 'LumiBased'
+            if 'DoubleMuon' in dataset:
+                which_data = 'DoubleMuon'
+            elif 'MuonEG' in dataset:
+                which_data = 'MuonEG'
+            elif 'SingleMuon' in dataset:
+                which_data = 'SingleMuon'
+            elif 'EGamma' in dataset:
+                which_data = 'EGamma'
+            else:
+                print('unkown dataset name in kind')
+            split = 'FileBased'
+            #split = 'LumiBased'
             lumiMask = f"config.Data.lumiMask = {golden_json}" 
             inbranch_file=f'WWG_keep_and_drop_{year}.txt'
             outbranch_file=f'WWG_outbranch_data_{year}.txt'
-            scriptargs=f"['kind={kind}','mode={mode}','year={year}']"
+            scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
         else:
             dataset=_Samples[iSample]['nanoAODSIM']
+            which_data='MC'
             #script = f'crab_script_{year}.py'
             split = 'FileBased'
             lumiMask = "config.Data.totalUnits = -1"
             if iSample in signals:
                 inbranch_file=f'WWG_keep_and_drop_{year}.txt'
                 outbranch_file=f'WWG_outbranch_sig_{year}.txt'
-                scriptargs=f"['kind={kind}','mode={mode}','year={year}']"
+                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
             else:
                 inbranch_file=f'WWG_keep_and_drop_{year}.txt'
                 outbranch_file=f'WWG_outbranch_mc_{year}.txt'
-                scriptargs=f"['kind={kind}','mode={mode}','year={year}']"
+                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
 
         file_content = ""
         file_content += "from WMCore.Configuration import Configuration\n"
@@ -119,7 +131,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
         file_content += "\n"
         file_content += "config.section_(\"General\")\n"
         file_content += f"config.General.requestName = \'{iSample + '_' + year}\'\n"
-        file_content += "config.General.transferLogs= False\n"
+        file_content += "config.General.transferLogs= True\n"
         file_content += f"config.General.workArea = \'crab{year}\'\n"
 #        file_content += f"config.JobType.allowUndistributedCMSSW = True\n"
         file_content += "\n"

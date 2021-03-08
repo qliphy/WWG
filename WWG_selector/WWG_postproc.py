@@ -24,6 +24,7 @@ parser.add_argument('-f', dest='file', default='', help='local file input')
 parser.add_argument('-y', dest='year', default='2016', help='year of dataset')
 parser.add_argument('-m', dest='mode', default='local', help='runmode local/condor')
 parser.add_argument('-k', dest='kind', default='MC', help='the kind for datasets (MC/data)')
+parser.add_argument('-w', dest='which_data', default='MC', help='which kind of data? (EGamma/Double Muon/...)')
 parser.add_argument('-n', dest='name', default='test', help='dataset name in short, currently support' 
     '\n tZq_ll'
     '\n WZ'
@@ -82,30 +83,45 @@ else:
         files.append(search.getValidSite(args.file) + args.file)
         print 'input files: ',files
         print 'test'
+	fwkjobreport = True
+
 
     # local specific file input, also support root://xxx    
     else:
         import DAS_filesearch as search
         if not ',' in args.file:
             files.append(args.file)
+	    fwkjobreport = True
 
         else:
             for i in args.file.split(','):
                 files.append(i)
+		fwkjobreport = True
 
         print 'input files: ',files
 if args.kind == 'data':
-    p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
-    p.run()
+    if arg.which_data == 'EGamma':
+        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer_EGamma()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_data_2018.txt")
+        p.run()
+    elif arg.which_data == 'DoubleMuon':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_Producer_DoubleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+        p.run()
+    elif arg.which_data == 'MuonEG':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_Producer_MuonEG()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+        p.run()
+    elif arg.which_data == 'SingleMuon':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_SingleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+        p.run()
+    print('unkown data')
 elif args.kind =='MC':
     if args.year=='2018':
-        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer(),puWeight_2018()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
+        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),muonScaleRes2018(),jmeCorrections_ak4_2018(),jmeCorrections_ak8_2018(),btagSF_2018(),WWG.WWG_Producer_MC(),puWeight_2018()],provenance=True,fwkJobReport=fwkjobreport,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
     elif args.year=='2017':
-        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer(), puWeight_2017()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2017(), jmeCorrections_ak4_2017(),jmeCorrections_ak8_2017(),btagSF_2017(),PrefCorr_2017(), WWG.WWG_Producer_MC(), puWeight_2017()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
     elif args.year == '2016':
-        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer(), puWeight_2016()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(), muonScaleRes2016(), jmeCorrections_ak4_2016(),jmeCorrections_ak8_2016(),btagSF_2016(), PrefCorr_2016(),WWG.WWG_Producer_MC(), puWeight_2016()], provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_mc_2018.txt")
         p.run()
 else:
     print "Unknown dataset kind "

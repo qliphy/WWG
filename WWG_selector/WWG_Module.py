@@ -42,7 +42,9 @@ n_num = 0
 
 
 class WWG_Producer(Module):
-    def __init__(self):
+    def __init__(self,isdata=False,kind='MC'):
+        self.isdata = isdata
+        self.kind = kind
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
@@ -116,7 +118,7 @@ class WWG_Producer(Module):
         self.out.fillBranch("emu_pass", emu_pass)
         self.out.fillBranch("ee_pass", ee_pass)
         self.out.fillBranch("mumu_pass", mumu_pass)
-        pass
+
 
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
@@ -178,7 +180,9 @@ class WWG_Producer(Module):
         dileptonpt_mumu=-99
         met_mumu=-99
         n_num +=1
-
+        pass_HLT_emu=-99
+        pass_HLT_ee = -99
+        pass_HLT_mumu = -99
         #if event.Generator_weight > 0 :
         #    n_posi +=1
         #else:
@@ -193,9 +197,71 @@ class WWG_Producer(Module):
     #    n_posi +=1
     #else:
     #    n_minus +=1
+        #single HLT
+        #if not ((event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8)):
+        #    return False
+        #mixed HLT
+        # check HLT
+        hlt_a = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
+        hlt_a1 = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v
+        hlt_a_add1 = event.HLT_Ele35_WPTight_Gsf
+        hlt_a_add2 = event.HLT_Ele32_WPTight_Gsf_L1DoubleEG
 
-        if not ((event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL) or (event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8)):
-            return False
+        hlt_b = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8
+        hlt_b1 = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8
+        hlt_b_add = event.HLT_IsoMu27
+
+        hlt_c = event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL
+        hlt_c1 = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL
+        hlt_c_add1 = event.HLT_Ele35_WPTight_Gsf
+        hlt_c_add2 = event.HLT_Ele32_WPTight_Gsf_L1DoubleEG
+
+        while (isdata):
+            if (kind == 'EGamma'):
+                if hlt_a or hlt_a1:
+                    pass_HLT_ee = 1
+                    break
+                elif (not (hlt_a or hlt_a1)) and (hlt_a_add1 or hlt_a_add2):
+                    pass_HLT_ee = 1
+                    break
+                elif (not (hlt_c or hlt_c1) and (hlt_c_add1 or hlt_c_add2)):
+                    pass_HLT_emu = 1
+                    break
+            elif (kind == 'DoubleMuon'):
+                if (hlt_b or hlt_b1):
+                    pass_HLT_mumu = 1
+                    break
+            elif (kind == 'SingleMuon'):
+                if (not (hlt_b or hlt_b1)) and (hlt_b_add):
+                    pass_HLT_mumu = 1
+                    break
+                elif (not (hlt_c or hlt_c1) and (hlt_c_add1 and hlt_c_add2)):
+                    pass_HLT_emu = 1
+                    break
+            elif (kind == 'MuonEG'):
+                if (hlt_c or hlt_c1):
+                    pass_HLT_emu = 1
+                    break
+            else:
+                print
+                'unkown dataset name for data or no proper channel'
+                return False
+
+        while (not isdata):
+            if (kind == 'MC'):
+                if (hlt_a or hlt_a1 or hlt_a_add1 or hlt_a_add2):
+                    pass_HLT_ee = 1
+                    break
+                elif (hlt_b or hlt_b1 or hlt_b_add):
+                    pass_HLT_mumu = 1
+                    break
+                elif (hlt_c or hlt_c1 or hlt_c_add2 or hlt_c_add1):
+                    pass_HLT_emu = 1
+                    break
+                else:
+                    print
+                    'unkown dataset name for data or no proper channel'
+                    return False
 
         if  event.MET_pt>20:
             MET_pass += 1
@@ -399,12 +465,11 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass >= 0:
+            if dileptonmass > 0 and pass_HLT_emu:
                 channel = 1
                 emu_pass += 1
             else :
                 minus_mll +=1
-                channel = 0
                 return False
 
         # ee
@@ -433,12 +498,11 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass >= 0:
+            if dileptonmass > 0 and pass_HLT_ee:
                 channel = 2
                 ee_pass += 1
             else:
                 minus_mll +=1
-                channel = 0
                 return False
 
 
@@ -467,7 +531,7 @@ class WWG_Producer(Module):
             else:
                 different_charge_reject +=1
                 return False
-            if dileptonmass >= 0:
+            if dileptonmass > 0 and pass_HLT_mumu:
                 channel = 3
                 mumu_pass += 1
             else :
@@ -488,7 +552,7 @@ class WWG_Producer(Module):
         #self.out.fillBranch("photon_phi",photons[photons_select[0]].phi)
         #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
         #self.out.fillBranch("Njets",njets)
-        if len(muons_select)==1 and len(electrons_select)==1:
+        if channel == 1:
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
             self.out.fillBranch("muons_is_real", muons_is_real)
@@ -512,11 +576,10 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_emu",electrons[electrons_select[0]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[0]].genPartFlav)
-            self.out.fillBranch("channel_mark", channel)
-            return True
+
             #self.out.fillBranch("photon_sieie",photons[photons_select[0]].sieie)
 
-        elif len(muons_select)==0 and len(electrons_select)==2:
+        elif channel == 2:
             #self.out.fillBranch("Njets",njets)
             self.out.fillBranch("electrons_is_real",electrons_is_real)
             self.out.fillBranch("photons_is_real", photons_is_real)
@@ -541,9 +604,8 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_ee",electrons[electrons_select[1]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", electrons[electrons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", electrons[electrons_select[1]].genPartFlav)
-            self.out.fillBranch("channel_mark", channel)
-            return True
-        elif len(muons_select)==2 and len(electrons_select)==0:
+
+        elif channel == 3:
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[0]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("lepton_motherid_mumu",genparts[genparts[muons[muons_select[1]].genPartIdx].genPartIdxMother].pdgId)
             #self.out.fillBranch("Njets",njets)
@@ -570,15 +632,21 @@ class WWG_Producer(Module):
                 self.out.fillBranch("lepton1_pt_mumu",muons[muons_select[1]].pt)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton2_is_real_nano", muons[muons_select[0]].genPartFlav)
                 if hasattr(event, 'nGenPart'):self.out.fillBranch("lepton1_is_real_nano", muons[muons_select[1]].genPartFlav)
-            self.out.fillBranch("channel_mark", channel)
-            return True
+
 
         #self.out.fillBranch("event",event.event)
         #self.out.fillBranch("dilepton_mass",dileptonmass)
         #self.out.fillBranch("dilepton_g_mass",dileptongmass)
         #self.out.fillBranch("dilepton_pt",dileptonpt)
         #self.out.fillBranch("Generator_weight",event.Generator_weight)
+        self.out.fillBranch("channel_mark",channel)
+        return True
 
+WWG_Producer_EGamma = lambda: WWG_Producer(isdata=True,kind='EGmama')
+WWG_Producer_DoubleMuon = lambda: WWG_Producer(isdata=True,kind='DoubleMuon')
+WWG_Producer_MuonEG = lambda: WWG_Producer(isdata=True,kind='MuonEG')
+WWG_Producer_SingleMuon = lambda: WWG_Producer(isdata=True,kind='SingleMuon')
+WWG_Producer_MC = lambda: WWG_Producer(isdata=False,kind='MC')
 
 print "MET_pass","\t","=","\t",MET_pass
 print "muon_pass","\t","=","\t",muon_pass 

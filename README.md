@@ -15,6 +15,8 @@ Introduction slides:
 - [Local mode](#Baseline-selection)
 - [Crab mode](#Crab-mode)
 - [Condor mode](#Condor-mode)
+- [Recent updates](#Recent-updates)
+
 
 --------------
 <br>
@@ -32,7 +34,6 @@ mv WWG/* .
 mv WWG/crab/* crab/
 scram b
 ```
-
 <br>
 <br>
 
@@ -47,7 +48,6 @@ or
 condor_submit submit_*.jdl
 ```
 <br>
-
 
 ## <span id="Baseline-selection"> Local mode </span>
 In WWG_seletor, `WWG_Module.py` is designed for selections. Use `WWG_postproc.py` to test.
@@ -83,4 +83,23 @@ Modify `Proxy_path` in `condor_for_post.py` according to you own settings
 ```bash
 python condor_for_postproc.py -y 2018 -n DY -k MC
 ```
+## <span id="Recent-updates"> Recent Updates </span>
+### HLT details
+
+In this analysis, we use mixed HLT. 
+
+you can change the HLT and datasets in  `WWG_Module.py` and `WWG_postproc.py`.
+
+If you use crab mode, you have to modify `cfreate_cfg.py`.
+
+### TMVA for some BKG
+
+Some test versions for BKG like ZGJ are on going.
+
+```bash
+root -l  TMVAClassification.C
+```
+
+
+
 
