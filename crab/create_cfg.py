@@ -107,7 +107,7 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
             lumiMask = f"config.Data.lumiMask = {golden_json}" 
             inbranch_file=f'WWG_keep_and_drop_{year}.txt'
             outbranch_file=f'WWG_outbranch_data_{year}.txt'
-            scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
+            scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_data}']"
         else:
             dataset=_Samples[iSample]['nanoAODSIM']
             which_data='MC'
@@ -117,11 +117,11 @@ def new_py(year,kind,mode,unitsPerJob,scriptPath):
             if iSample in signals:
                 inbranch_file=f'WWG_keep_and_drop_{year}.txt'
                 outbranch_file=f'WWG_outbranch_sig_{year}.txt'
-                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
+                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_data}']"
             else:
                 inbranch_file=f'WWG_keep_and_drop_{year}.txt'
                 outbranch_file=f'WWG_outbranch_mc_{year}.txt'
-                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_date}']"
+                scriptargs=f"['kind={kind}','mode={mode}','year={year}','which_data={which_data}']"
 
         file_content = ""
         file_content += "from WMCore.Configuration import Configuration\n"
