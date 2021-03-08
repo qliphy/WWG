@@ -17,8 +17,6 @@ import argparse
 import re
 import optparse
 
-
-
 parser = argparse.ArgumentParser(description='baseline selection')
 parser.add_argument('-f', dest='file', default='', help='local file input')
 parser.add_argument('-y', dest='year', default='2016', help='year of dataset')

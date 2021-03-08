@@ -32,6 +32,7 @@ datasets={
 def new_py(year,kind,mode,unitsPerJob,scriptPath):
     signals=[]
     _Samples={}
+
     if year == '2018':
         outdir = '/store/user/zguan/WWG_2018' + version
         golden_json = "\'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt\'"

@@ -86,7 +86,7 @@ python condor_for_postproc.py -y 2018 -n DY -k MC
 ## <span id="Recent-updates"> Recent Updates </span>
 ### HLT details
 
-In this analysis, we use mixed HLT. 
+In this analysis, we use mixed HLT.  
 
 you can change the HLT and datasets in  `WWG_Module.py` and `WWG_postproc.py`.
 

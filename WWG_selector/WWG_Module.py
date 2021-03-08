@@ -543,9 +543,6 @@ class WWG_Producer(Module):
             print len(electrons_select),len(muons_select)
             return False
 
-
-
-
         #self.out.fillBranch("MET",event.MET_pt)
         #self.out.fillBranch("photon_pt",photons[photons_select[0]].pt)
         #self.out.fillBranch("photon_eta",photons[photons_select[0]].eta)

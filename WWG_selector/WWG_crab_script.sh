@@ -60,6 +60,5 @@ python WWG_postproc.py -k $kind -m $mode -y $year -w $which_data
 #  else
 #     python whjj_postproc.py -y $year
 #  fi
-#fi
 
 fi
