@@ -45,7 +45,6 @@ class WWG_Producer(Module):
     def __init__(self,isdata=False,kind='MC'):
         self.isdata = isdata
         self.kind = kind
-        pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
         self.out.branch("event",  "i")
@@ -121,6 +120,8 @@ class WWG_Producer(Module):
 
 
     def analyze(self, event):
+	isdata=self.isdata
+        kind=self.kind
         """process event, return True (go to next module) or False (fail, go to next event)"""
         electrons = Collection(event, "Electron")
         muons = Collection(event, "Muon")
@@ -138,7 +139,7 @@ class WWG_Producer(Module):
             genparts = Collection(event, "GenPart")
 
     # Record the pass numbers for each cut. Noticed that for efficiency, those who can't pass the MET cut may not be counted because it will pass to next event directly.
-        
+	        
         global MET_pass
         global photon_pass
         global electron_pass
@@ -203,7 +204,7 @@ class WWG_Producer(Module):
         #mixed HLT
         # check HLT
         hlt_a = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
-        hlt_a1 = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v
+        hlt_a1 = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ
         hlt_a_add1 = event.HLT_Ele35_WPTight_Gsf
         hlt_a_add2 = event.HLT_Ele32_WPTight_Gsf_L1DoubleEG
 
@@ -216,51 +217,39 @@ class WWG_Producer(Module):
         hlt_c_add1 = event.HLT_Ele35_WPTight_Gsf
         hlt_c_add2 = event.HLT_Ele32_WPTight_Gsf_L1DoubleEG
 
-        while (isdata):
+        if (isdata):
             if (kind == 'EGamma'):
                 if hlt_a or hlt_a1:
                     pass_HLT_ee = 1
-                    break
                 elif (not (hlt_a or hlt_a1)) and (hlt_a_add1 or hlt_a_add2):
                     pass_HLT_ee = 1
-                    break
                 elif (not (hlt_c or hlt_c1) and (hlt_c_add1 or hlt_c_add2)):
                     pass_HLT_emu = 1
-                    break
             elif (kind == 'DoubleMuon'):
                 if (hlt_b or hlt_b1):
                     pass_HLT_mumu = 1
-                    break
             elif (kind == 'SingleMuon'):
                 if (not (hlt_b or hlt_b1)) and (hlt_b_add):
                     pass_HLT_mumu = 1
-                    break
                 elif (not (hlt_c or hlt_c1) and (hlt_c_add1 and hlt_c_add2)):
                     pass_HLT_emu = 1
-                    break
             elif (kind == 'MuonEG'):
                 if (hlt_c or hlt_c1):
                     pass_HLT_emu = 1
-                    break
             else:
-                print
-                'unkown dataset name for data or no proper channel'
+                print 'unkown dataset name for data or no proper channel'
                 return False
 
-        while (not isdata):
+        if (not isdata):
             if (kind == 'MC'):
                 if (hlt_a or hlt_a1 or hlt_a_add1 or hlt_a_add2):
                     pass_HLT_ee = 1
-                    break
                 elif (hlt_b or hlt_b1 or hlt_b_add):
                     pass_HLT_mumu = 1
-                    break
                 elif (hlt_c or hlt_c1 or hlt_c_add2 or hlt_c_add1):
                     pass_HLT_emu = 1
-                    break
                 else:
-                    print
-                    'unkown dataset name for data or no proper channel'
+                    print 'unkown dataset name for data or no proper channel'
                     return False
 
         if  event.MET_pt>20:

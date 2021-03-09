@@ -9,9 +9,10 @@ from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetHelperRun2 impor
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import *
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.muonScaleResProducer import *
 #from PhysicsTools.NanoAODTools.postprocessing.modules.common.collectionMerger import *
-
+#from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
 # from WWG_Module import * 
-import WWG_Module as WWG
+#import WWG_Module as WWG
+from WWG_Module import *
 
 import argparse
 import re
@@ -65,8 +66,9 @@ if args.file == '':
     if 'crab' in args.mode:
         from PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper import inputFiles,runsAndLumis
         files = inputFiles()
-        jsoninput = runsAndLumis()
+        #jsoninput = None
         fwkjobreport = True
+	jsonInput=runsAndLumis()
 
     # condor can't use dasgoclient, so we should upload the filepath for condor run. sth. different with local run here
     elif 'condor' in args.mode:
@@ -90,25 +92,25 @@ else:
         if not ',' in args.file:
             files.append(args.file)
 	    fwkjobreport = True
-
+	    jsoninput = None
         else:
             for i in args.file.split(','):
                 files.append(i)
 		fwkjobreport = True
-
+                jsonInput=None
         print 'input files: ',files
 if args.kind == 'data':
-    if arg.which_data == 'EGamma':
-        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),WWG.WWG_Producer_EGamma()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_data_2018.txt")
+    if args.which_data == 'EGamma':
+        p=PostProcessor(".",files,branchsel="WWG_keep_and_drop_2018.txt",modules=[countHistogramsProducer(),WWG_Producer_EGamma()],provenance=True,fwkJobReport=fwkjobreport,jsonInput=jsoninput,outputbranchsel="WWG_outbranch_data_2018.txt")
         p.run()
-    elif arg.which_data == 'DoubleMuon':
-        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_Producer_DoubleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+    elif args.which_data == 'DoubleMuon':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG_Producer_DoubleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
         p.run()
-    elif arg.which_data == 'MuonEG':
-        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_Producer_MuonEG()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+    elif args.which_data == 'MuonEG':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG_Producer_MuonEG()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
         p.run()
-    elif arg.which_data == 'SingleMuon':
-        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG.WWG_SingleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
+    elif args.which_data == 'SingleMuon':
+        p = PostProcessor(".", files, branchsel="WWG_keep_and_drop_2018.txt", modules=[countHistogramsProducer(), WWG_Producer_SingleMuon()], provenance=True,fwkJobReport=fwkjobreport, jsonInput=jsoninput, outputbranchsel="WWG_outbranch_data_2018.txt")
         p.run()
     print('unkown data')
 elif args.kind =='MC':
